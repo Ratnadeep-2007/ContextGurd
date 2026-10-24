@@ -4,28 +4,32 @@ status: approved
 ---
 # ContextGuard
 
-Approval basis: the user reviewed the refined idea and requested implementation on 23 October 2026. This document transcribes that existing context rather than claiming a new interview occurred.
+## Authority and provenance
+The user's detailed product/implementation brief explicitly supersedes the earlier draft and authorizes local implementation. This records written direction, not a retrospective interview. No earlier application or Synora code, schema, prompts or UI is copied.
 
 ## The Unique Kernel
-Check evidence against a kickoff decision, expose meaningful uncertainties with real quotations, and update a report after user clarification.
+Check whether selected evidence is complete, consistent and reliable enough for a specific goal. Link material findings to exact passages and retain human clarification and decision history. Models propose interpretations; code enforces permissions, routing, identity and citations.
+
 ## Who It's For
-A project lead or freelancer preparing a development kickoff from a brief, requirements, meeting notes, and a task list.
+Project owners and identifiable team members deciding whether a particular action has sufficient reliable context.
+
 ## The Core Loop
-State a goal → add sources → review checks and evidence → clarify or dismiss → recheck → copy a kickoff brief. Return when a source or decision changes.
+Choose project and goal → select authorized sources and dates → inspect parsing and project matches → confirm unknown routes → analyze → inspect findings beside evidence → assign/respond/confirm → update and export the Context Gap Report.
+
 ## Inspiration & Identity
-User direction: minimal, impressive, no gradients, no AI slop, every action has a guide sentence. Implementation choice: ivory, forest green, charcoal, restrained amber and red; editorial typography and clear rules.
+Local Windows, minimal solid ivory/forest/ink UI, no gradients, guide sentences. Synora informs only the high-level adapter/shared-context/unknown-inbox pattern.
+
 ## Why This Matters to the Learner
-User asked to turn the researched ContextGuard idea into a complete working project with code review and tests.
+A repeatable plan-first workflow and a working, reviewed and tested application. The learner supplied the current direction and delegated implementation decisions.
+
 ## What "Working" Looks Like
-The browser completes the fictional sample review, shows exact evidence, saves a clarification, updates its status, reopens the case, and copies a brief. Own documents use configured live providers; failures never masquerade as success.
+Unknown evidence cannot read or enter project memory. Confirmed routing allows a goal-specific review with verified passages. A review owner assigns a finding; an accountable person responds; a decision owner confirms. A later contradictory statement creates an open linked finding while preserving the old decision. Other projects/workspaces cannot access it. Fictional/test behavior is labeled; live accounts are verified separately.
+
 ## The POC Boundary
-Local single-user web application, PDF/DOCX/text sources, source preview, editable suggested criteria, Planner/Evidence/Challenge, deterministic validation, SQLite case memory, user corrections and undo, evidence map, export and copy, fixed evaluation cases.
+Manual TXT/MD/PDF/DOCX, Vexa transcript client, Slack OAuth/selected pulls, isolated read-only Baileys test/import boundary, common evidence format, source permissions, project routing/Unknown Context, team identities/roles, versioned decisions, Muse Wonder/Groq/NVIDIA provider interface, exact citations and Markdown report. Source connectors and teams are now in scope; earlier deferrals are superseded. The broad scope exceeds an afternoon exercise and requires incremental verification.
+
 ## Later
-Public deployment, multi-user access control, richer parser/OCR, collaborative review.
+Enterprise SSO, hosted multi-instance deployment, unattended ingestion and production connector certification. Actual integration acceptance requires real consented accounts, not mocks.
+
 ## Explicitly Cut
-Synora code reuse, messaging integrations, organization-wide unscoped memory, autonomous external actions, arbitrary readiness scores, guaranteed correctness, and fabricated live results.
-
-## Accepted extension: project memory
-
-The user explicitly required remembering earlier project reviews. Reviews now have an explicit project association, and confirmed clarifications can be recalled by another review in that same project. SQLite retains exact decisions and source provenance; the Mem0 OSS REST adapter can index them for retrieval. Active recall excludes undone, stale-input, deleted, and other-project decisions. Historical context does not automatically approve a new review. Local recall and controlled adapter/browser tests pass; a real Mem0 service is not running in this environment. See `docs/project-memory.md`.
-
+Silent meeting joins, duplicate STT, WhatsApp sending/replies/bulk scraping, automatic truth or authority selection, silent cross-project duplication, unexplained numerical readiness scores, silent data transfer/deployment/publication and claims that test adapters are live integrations.

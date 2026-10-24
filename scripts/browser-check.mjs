@@ -1,111 +1,52 @@
-import { createRequire } from 'node:module'
-import { mkdir, writeFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
-
-const require = createRequire(resolve('frontend/package.json'))
-const { chromium, expect } = require('@playwright/test')
-const base = process.env.CONTEXTGUARD_URL || 'http://127.0.0.1:8017'
-const browser = await chromium.launch({ channel: 'msedge', headless: true })
-const errors = []
-const results = []
-await mkdir('artifacts', { recursive: true })
-try {
-  const context = await browser.newContext({ viewport: { width: 1440, height: 1050 }, permissions: ['clipboard-read', 'clipboard-write'] })
-  const page = await context.newPage()
-  page.on('pageerror', e => errors.push(e.message))
-  await page.goto(base)
-  await expect(page.getByRole('heading', { name: 'Before the work begins.' })).toBeVisible()
-  await page.screenshot({ path: 'artifacts/welcome-desktop.png', fullPage: true })
-  await page.getByRole('button', { name: 'Try a sample review' }).click()
-  await expect(page.getByText('4 decisions need attention', { exact: true })).toBeVisible({ timeout: 15000 })
-  await expect(page.getByText('FICTIONAL SAMPLE', { exact: true })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Payment work depends on two open decisions', exact: true }).last()).toBeVisible()
-  await page.screenshot({ path: 'artifacts/review-desktop.png', fullPage: true })
-  results.push('Sample: browser → API → sources → verified report')
-  await page.getByRole('button', { name: 'Map', exact: true }).click()
-  await expect(page.locator('.evidence-map')).toBeVisible()
-  await page.getByRole('button', { name: 'Passages', exact: true }).click()
-  await page.getByRole('button', { name: 'View source', exact: true }).first().click()
-  await expect(page.getByRole('dialog')).toBeVisible()
-  await expect(page.locator('.passages article').first()).toBeVisible()
-  await page.getByRole('button', { name: 'Done', exact: true }).click()
-  results.push('Evidence map and extracted-source dialog')
-  await page.getByRole('button', { name: /Important.*The release date needs confirmation/ }).click()
-  await page.getByRole('combobox', { name: 'Choose an answer', exact: true }).selectOption('other')
-  await page.getByLabel('Your answer', { exact: true }).fill('November 20 is the revised release date, confirmed by the client.')
-  await page.getByLabel('Who can clarify this?').fill('Maya')
-  await page.getByRole('button', { name: 'Save & recheck' }).click()
-  await expect(page.getByText('3 decisions need attention', { exact: true })).toBeVisible({ timeout: 15000 })
-  await expect(page.getByText('Updated after your review', { exact: true })).toBeVisible()
-  await expect(page.getByLabel('Your answer', { exact: true })).toHaveValue('November 20 is the revised release date, confirmed by the client.')
-  await expect(page.getByLabel('Who can clarify this?')).toHaveValue('Maya')
-  await page.reload()
-  await expect(page.getByText('3 decisions need attention', { exact: true })).toBeVisible()
-  results.push('Clarification, full recheck, saved status after reload')
-  await page.getByRole('button', { name: 'Prepare brief' }).click()
-  await expect(page.getByLabel('Brief text')).toContainText('November 20')
-  await page.getByRole('button', { name: 'Copy brief', exact: true }).click()
-  await expect(page.getByText(/Brief copied/)).toBeVisible()
-  const download = page.waitForEvent('download')
-  await page.getByRole('button', { name: 'Download Markdown' }).click()
-  await (await download).saveAs('artifacts/kickoff-brief.md')
-  await page.getByRole('button', { name: 'Done', exact: true }).click()
-  results.push('Editable brief, real clipboard write, Markdown download')
-  await page.getByRole('button', { name: 'History', exact: true }).click()
-  await page.getByRole('button', { name: 'Undo this choice' }).click()
-  await expect(page.getByText('4 decisions need attention', { exact: true })).toBeVisible({ timeout: 15000 })
-  results.push('Undo reopens finding without changing source text')
-  await page.getByRole('button', { name: 'New review', exact: true }).click()
-  await page.getByLabel('Review name', { exact: true }).fill('Browser upload test')
-  await page.getByRole('button', { name: 'Save decision' }).click()
-  await page.getByRole('button', { name: 'Paste notes instead' }).click()
-  await page.getByLabel('Source text', { exact: true }).fill('The kickoff is Monday. Maya owns the approved dashboard.')
-  await page.getByRole('button', { name: 'Add notes', exact: true }).click()
-  await expect(page.getByText('1 / 8 sources', { exact: true })).toBeVisible()
-  const config = await (await page.request.get(`${base}/api/config`)).json()
-  if (config.live_available) await expect(page.getByRole('button', { name: 'Review the evidence', exact: true })).toBeEnabled()
-  else await expect(page.getByRole('button', { name: 'Review the evidence', exact: true })).toBeDisabled()
-  results.push('Own-source setup/paste reflects configured provider availability without sending a live request')
-  await page.getByLabel('Upload source file').setInputFiles({ name: 'decisions.txt', mimeType: 'text/plain', buffer: Buffer.from('The implementation scope is approved. The owner is Leo.') })
-  await expect(page.getByText('2 / 8 sources', { exact: true })).toBeVisible()
-  await page.getByLabel('Upload source file').setInputFiles({ name: 'broken.pdf', mimeType: 'application/pdf', buffer: Buffer.from('not a real pdf') })
-  await expect(page.getByText('3 / 8 sources', { exact: true })).toBeVisible()
-  await expect(page.getByText('Could not read · inspect the error', { exact: true })).toBeVisible()
-  results.push('Real file upload through parser subprocess; visible failed PDF')
-  let releaseUpload
-  let capturedUpload
-  const holdUpload = new Promise(resolve => { releaseUpload = resolve })
-  const uploadStarted = new Promise(resolve => { capturedUpload = resolve })
-  await page.route(/\/api\/cases\/[^/]+\/sources\/upload\?/, async route => { capturedUpload(); await holdUpload; await route.continue() })
-  await page.getByLabel('Upload source file').setInputFiles({ name: 'late.txt', mimeType: 'text/plain', buffer: Buffer.from('This is a delayed upload for a different case.') })
-  await uploadStarted
-  const sampleButton = page.locator('.saved-reviews button').filter({ hasText: 'Fieldwork' }).first()
-  await sampleButton.click()
-  await expect(page.getByText('4 decisions need attention', { exact: true })).toBeVisible()
-  const delayedResponse = page.waitForResponse(response => response.url().includes('/sources/upload?'))
-  releaseUpload()
-  await delayedResponse
-  await expect(page.getByRole('heading', { name: 'Fieldwork · kickoff review', exact: true })).toBeVisible()
-  await page.unroute(/\/api\/cases\/[^/]+\/sources\/upload\?/)
-  results.push('Delayed upload cannot navigate back to an old case')
-  await page.setViewportSize({ width: 390, height: 844 })
-  await expect(page.locator('.sidebar')).toBeHidden()
-  await page.locator('h1').click()
-  await page.screenshot({ path: 'artifacts/review-mobile.png', fullPage: true })
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)
-  if (overflow) throw new Error('Horizontal overflow at 390px')
-  await page.getByRole('button', { name: 'Open navigation' }).click()
-  await expect(page.locator('.sidebar')).toHaveClass(/mobile-open/)
-  await page.getByRole('button', { name: 'Close navigation' }).click()
-  await page.getByRole('button', { name: 'Prepare brief' }).click()
-  await expect(page.getByRole('dialog')).toBeVisible()
-  await page.keyboard.press('Escape')
-  await expect(page.getByRole('dialog')).toHaveCount(0)
-  results.push('390px responsive layout, navigation, modal keyboard dismissal')
-  if (errors.length) throw new Error(errors.join('\n'))
-  await writeFile('artifacts/browser-results.json', JSON.stringify({ base, results, pageErrors: errors, passed: true }, null, 2))
-  console.log(JSON.stringify({ passed: true, checks: results }, null, 2))
-} catch (error) {
-  await writeFile('artifacts/browser-results.json', JSON.stringify({ base, results, pageErrors: errors, passed: false, error: String(error) }, null, 2))
-  throw error
-} finally { await browser.close() }
+import {createRequire} from 'node:module';
+import {mkdir, writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+// Development-only harness may use an installed Playwright package; no old app code is imported.
+const require=createRequire(resolve(process.env.CONTEXTGUARD_PLAYWRIGHT_PACKAGE || '../frontend/package.json'));
+const {chromium,expect}=require('@playwright/test');
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const checks=[],errors=[];
+await mkdir('artifacts/browser',{recursive:true});
+try{
+ const context=await browser.newContext({viewport:{width:1440,height:1050}});
+ const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(process.env.CONTEXTGUARD_URL || 'http://127.0.0.1:8027');
+ await expect(page.getByRole('heading',{name:'Create your local workspace'})).toBeVisible();
+ await page.getByLabel('Your name').fill('Fictional reviewer');await page.getByLabel('Password',{exact:true}).fill('fictional-local-pass');
+ await page.getByRole('button',{name:'Create workspace',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'What do you need to decide?'})).toBeVisible();checks.push('Fresh local setup and authenticated UI');
+ await page.getByRole('button',{name:'Try fictional three-document sample'}).click();
+ await expect(page.locator('#review-project')).not.toHaveValue('');
+ await page.getByLabel('Decision or action to check').fill('Can the fictional v2 pilot proceed?');
+ await page.getByLabel('Use fictional test analysis').check();
+ await page.getByRole('button',{name:'Run goal review',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Can the fictional v2 pilot proceed?'})).toBeVisible();
+ await expect(page.locator('article[data-finding]')).toHaveCount(6);checks.push('Three fictional sources → six verified fixture findings, explicit test label');
+ const first=page.locator('article[data-finding]').first();
+ const select=first.locator('select[name=choice]');await expect(select.locator('option').last()).toHaveText('Other');
+ await select.selectOption('other');await expect(first.getByLabel('Your answer or explanation')).toBeVisible();
+ await first.getByLabel('Your answer or explanation').fill('Use January 18 for the v2 pilot; sponsor confirmed.');
+ await first.getByRole('button',{name:'Record response'}).click();
+ await expect(page.locator('article[data-finding]').first().getByText('Use January 18 for the v2 pilot; sponsor confirmed.')).toBeVisible();
+ await page.locator('article[data-finding]').first().getByRole('button',{name:'Confirm resolution'}).click();
+ await expect(page.locator('article[data-finding]').first().getByText('resolved',{exact:true})).toBeVisible();checks.push('Context options/Other → response → authorized decision confirmation');
+ const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('link',{name:'Download report'}).click()]);
+ await download.saveAs('artifacts/browser/context-gap-report.md');checks.push('Stored report download');
+ await page.reload();await page.getByRole('button',{name:/Can the fictional v2 pilot proceed/}).first().click();
+ await expect(page.locator('article[data-finding]').first().getByText('resolved',{exact:true})).toBeVisible();checks.push('Decision/report survives reload');
+ await page.screenshot({path:'artifacts/browser/report-desktop.png',fullPage:true});
+ await page.getByRole('button',{name:'Sources',exact:true}).click();
+ const sourceForm=page.locator('form[data-form=source]');await sourceForm.locator('[name=label]').fill('Unassigned fictional note');await sourceForm.locator('[name=container]').fill('unknown-fixture-note');
+ await sourceForm.getByRole('button',{name:'Register source'}).click();
+ const paste=page.locator('form[data-form=paste]');await paste.locator('[name=source_id]').selectOption({label:'Unassigned fictional note · manual'});
+ await paste.locator('[name=project_id]').selectOption('');await paste.locator('[name=text]').fill('Orchid routing needs confirmation before project memory.');await paste.locator('[name=consent]').check();await paste.getByRole('button',{name:'Import note'}).click();
+ await page.getByRole('button',{name:/Unknown Context \(1\)/}).click();await expect(page.getByRole('heading',{name:'Unknown Context',exact:true})).toBeVisible();
+ await page.locator('form[data-form=route]').getByRole('button',{name:'Assign to project'}).click();
+ await expect(page.getByRole('button',{name:/Unknown Context \(0\)/})).toBeVisible();checks.push('Manual unknown input → confirmed project routing');
+ await page.setViewportSize({width:390,height:844});await page.getByRole('button',{name:'Review',exact:true}).click();
+ await page.screenshot({path:'artifacts/browser/mobile.png',fullPage:true});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2))throw Error('Mobile horizontal overflow');checks.push('390px mobile layout');
+ if(errors.length)throw Error(errors.join('\n'));
+ await writeFile('artifacts/browser/results.json',JSON.stringify({checks,errors,mode:'Fictional fixtures; no live model or source connections'},null,2));
+ console.log(JSON.stringify({checks,errors},null,2));
+}finally{await browser.close();}

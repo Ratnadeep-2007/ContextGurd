@@ -1,32 +1,26 @@
-# Build history and provenance
+# Fresh build history and GitHub snapshot
 
-Audit date: October 24, 2026. This document records observed evidence; Git metadata alone cannot prove the original creation date or authorship of every line.
+The local fresh repository began inside an empty `contextguard-rebuild` folder on October 24, 2026. It independently implemented the existing ContextGuard idea after prior exploration; that earlier work is disclosed rather than represented as an entirely new idea. No previous ContextGuard or Synora application code, schema, prompts, UI or tests was copied.
 
-## Observed repository evidence
+These are actual local commit IDs, author timestamps and subjects, recorded before the publication documentation commit. They are retained in the local repository. They are **not** represented as independently available GitHub commit links or a cryptographically published full history.
 
-- Repository: https://github.com/Ratnadeep-2007/ContextGurd
-- GitHub metadata: public; MIT license detected; created October 24, 2026 at 06:12:38 UTC.
-- Reachable history at audit start: one consolidated commit, `2b6df12bacbec4451be6046435874be520ad57e3`.
-- Commit author date: October 24, 2026 at 11:44:14 +05:30 (06:14:14 UTC).
-- Commit subject: `ContextGuard: complete local kickoff evidence-review app`.
-- Remote default branch: main. The remote tree matched local HEAD at audit start.
-- The official hackathon submission period is September 22–October 26, 2026. The recorded initial commit is inside that period.
+| Local commit | Author timestamp | Subject |
+|---|---|---|
+| `9e3c0128b48d43adafa35b2b063a12642551d77e` | 2026-10-24T16:38:14+05:30 | Initialize fresh Devpost Learn rebuild workspace |
+| `5b58178b22b314964e908e73c6437c21452ff2fe` | 2026-10-24T17:02:29+05:30 | Draft ContextGuard scope from learner requirements |
+| `3f047c81d966a54d7683900c9953f80512dca48e` | 2026-10-24T18:21:24+05:30 | Plan goal-based evidence, routing and team workflow |
+| `bd6825c36ee7f730ddedcdad1131b9601a7ec03e` | 2026-10-24T18:23:51+05:30 | Build evidence ingestion and confirmed project routing |
+| `ae86edb506e31d6efd9dd69a79e8d2c70b841a04` | 2026-10-24T18:27:53+05:30 | Build goal review and versioned human decisions |
+| `91c472d68e228af3c3803c0231277f752d495fe0` | 2026-10-24T19:18:42+05:30 | Add isolated source adapters and local review interface |
+| `0e4715400f528c404740dd7aed9b8be935f39648` | 2026-10-24T19:18:55+05:30 | Include verified Windows launcher |
+| `a3c94232f26def02bd37c14c4932c503518a6427` | 2026-10-24T19:36:41+05:30 | Improve Windows startup and local configuration checks |
 
-## Implementation provenance
+## Publication boundary
 
-The ContextGuard application was written for this workspace from the reviewed project idea. The earlier idea and planning context are retained in the two ContextGuard context/technical-plan Markdown documents. The conversation/build record states no Synora application source was reused. Synora-themed sample documents are explicitly synthetic examples based on project themes, not an imported Synora application.
+The requested separate GitHub repository was not created. The user then explicitly requested a new GitHub branch. The fresh source snapshot is published through the connected GitHub tools on `Ratnadeep-2007/ContextGurd:contextguard-learn-rebuild`, based on existing public main commit `9893eae736df2eadbf9829948d84016f47a8105c`. Main is not moved or rewritten. The new snapshot tree contains the fresh app only; the earlier code remains in main/history. The remote snapshot commit is therefore different from the independently created local build commits above. Nothing claims that creating a branch erases earlier work or proves eligibility.
 
-Standard third-party frameworks, libraries and fonts were used and disclosed in `THIRD_PARTY_NOTICES.md`, package manifests, the frontend lockfile and backend requirements. Frontend dependency tarballs were initially installed from local package caches when registry access was restricted. No model weights are bundled. Mem0's service is an external optional index; its SDK/runtime is not copied into this repository.
+The published tree is checked against the committed local source tree and individual blob hashes. Configuration values, learner context, databases, cached packages and test artifacts are excluded. Forty-nine automated tests and seven grouped fictional browser checks are recorded in docs/verification.md; live providers/source accounts remain separately unverified.
 
-## Process record
+## Skill Pack evidence
 
-The official Devpost Learn Skill Pack was cloned/read and parts of its instructions were applied to the approved idea, planning artifacts and implementation. A complete original 1-start through 6-ship guided sequence was not performed and is not claimed. Existing learner instructions/approval were reused rather than inventing interviews or backdating approvals. The current work resumes 5-build from the existing approved documents, verifies and repairs the implementation, and reconciles documentation.
-
-The initial implementation was published in one consolidated commit. Separate historical slice commits do not exist and will not be fabricated. Current release audit fixes and documentation are working-tree updates until a new checkpoint is made. No history rewriting or remote publishing is part of this audit.
-
-## Evidence locations
-
-- `devpost/scope.md`, `prd.md`, `spec.md`, `checklist.md`: planning, accepted changes and remaining learner checkpoints.
-- `evaluation/results.md`, `evaluation/release-readiness.md`: actual test outcomes and limitations.
-- `artifacts/release-verification/repository-audit.json`: reachable-history credential/path scan.
-- `devpost/app-map.html`: offline reference route through the current implementation.
+The official pack was installed locally. Reported onboarding facts, the learner's current detailed written product/implementation direction, fresh scope/PRD/spec/checklist, verified implementation slices and a static app map are recorded. Planning authority is the explicit written implementation brief; no retrospective six-stage interview is invented. The final hands-on readiness checkpoint, learner demo video and submitted Devpost entry are not claimed complete.

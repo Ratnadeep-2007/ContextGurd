@@ -3,49 +3,42 @@ doc: prd
 status: approved
 ---
 # ContextGuard — Product Requirements
-
-Source: scope.md > The Core Loop and The POC Boundary; approved idea document sections 1, 3, 8, and 13. Visual constraints are from the current user request. Agent-selected details are implementation choices, not invented user testimony.
+Authority: the user's detailed implementation brief. Learner hands-on feedback is recorded separately.
 
 ## The Core Journey
-1. Open a calm workspace and start a review or load a clearly labeled fictional sample.
-2. State the decision, optionally select a project for shared recall, add PDF/DOCX/text, inspect extraction and suggested criteria.
-3. Run the review; see real stage progress, honest failures, and exact source-linked findings.
-4. Inspect an issue, enter who can clarify it, then use one contextual answer dropdown. Other is last and opens a custom-answer field. Leave unanswered information open, dismiss an irrelevant finding, or explicitly record accepted risk.
-5. Recheck, see what changed, undo a resolution, reopen the saved case, and copy/download a kickoff brief.
-
-## Screens and Layout
-One workspace with a slim navigation rail, page heading, goal/source setup, and report. Recent Reviews uses the available sidebar height. Providers & privacy is at the right of the top navbar. Findings list at left and evidence/action detail at right; stack on narrow screens. Sources, review criteria, history, and provider information have focused panels rather than extra app sections. A project-assigned review can display earlier same-project decisions with their original sources.
+Create/sign into a local account, select project and goal, select authorized sources/dates, review parsing/routes, run analysis, inspect cited findings, assign/respond/confirm, export the Context Gap Report. Explicit fictional demo actions create labeled test sources.
 
 ## Look and Feel
-No gradients. Warm off-white canvas, white surfaces, deep green primary controls, readable charcoal type, muted issue colors. Clear typographic hierarchy, modest corners, no decorative dashboard charts or chatbot. Guide sentences accompany actions and remain available on mobile.
+Minimal native controls, readable system typography, responsive columns, solid ivory/white/forest with amber/red statuses, keyboard focus and useful guide sentences. No gradients or generic AI slogans.
 
 ## Features and Behavior
-### Sources and criteria
-Preserve original passages with stable IDs and hashes. Show extraction failures and limits. Suggested criteria are optional; record exclusion reasons. Source edits invalidate stale results and resolutions. Goal is editable for live cases; fixture sample inputs remain fixed so replay is honest.
-### Analysis and evidence
-Three bounded roles return typed JSON. Verify quote existence and references, required check coverage, duplicate findings, and conflict evidence. Show semantic uncertainty; exact quote validation is not proof of truth. Readiness status never approves a project.
-### Clarification and memory
-Resolve only a selected issue; save answer/action/owner/reason and provenance. A user-confirmed answer is distinguishable from documentary proof. Unknown answers remain open. Undo restores open status. New source content reopens affected analysis.
-
-Source answer choices must be supported by the cited quotations. Contextual handling choices are identified as user decisions and cannot be mistaken for extracted document facts. No answer is preselected for a new finding. The API validates choice IDs/actions; a selected source answer retains stable passage references and survives reload.
-
-Explicit project membership of a review enables recall of earlier confirmed clarifications from that project. Historical answers include their original question/review, answer, owner, date and source quotes. They are context for reconfirmation, not automatic approval of new evidence. Undo, changed inputs, project changes and deletion remove a decision from active recall. Local keyword/recent retrieval is implemented; the Mem0 OSS REST connector is available, but no live Mem0 service is connected in the recorded environment.
-### Useful output
-Show side-by-side quotes and a selected-issue evidence map. Copy/download a brief including sources, unresolved questions, user assertions, exclusions, and limitations. Saved reviews can be reopened/deleted with explicit confirmation for deletion.
-
-The brief separates recorded clarifications from open questions and accepted risks. It includes counts, selected answers and source locations, owners and earlier project context considered. All-clarified output does not certify project readiness. If an earlier decision used by a report changes or is removed, export requires a recheck.
+### Identity and source access
+Workspace owners manage identifiable accounts; projects grant owner, decision_owner or reviewer roles. Source access is independent. Review owners manage assignment/dismissal; accountable assignees answer; only project owners/decision_owners confirm. Authorship does not imply responsibility.
+### Evidence and routing
+All adapters preserve workspace/source/container/item IDs, original passage, author/external identity, date, link/location, parsing state, consent and uncertainty. Routing order: explicit accessible project, approved source mapping, otherwise unknown. Model suggestions are never confirmed routes. Unknown items cannot access memory, notify assignees or produce project findings. Users may assign, keep, dismiss or create a project. Confirmed segments retain full original import and provenance; no silent full-item duplication.
+### Sources
+Manual upload failures retain filename/error and offer paste fallback. Explicit Vexa join/fetch controls preserve speaker/time and partial transcripts without internal STT. Slack OAuth uses minimal scopes and selected channel/thread/date pulls; revoked tokens, rate limits, edits/deletions and truncation are visible. Baileys is unofficial and stays isolated/test-only until safe live pairing is verified; manual WhatsApp import remains available. No sending or all-chat scraping.
+### Goal-specific findings
+Kinds: verified_fact, potential_conflict, missing_information, unsupported_assumption, possibly_outdated, unresolved_dependency, clarification_needed. Each material finding has exact source IDs/quotes, goal impact, uncertainty/alternate interpretations, a focused question and next action. Different scopes, milestones, versions or periods are not automatically contradictions. Missing-information claims describe the inspected evidence boundary.
+### Assignment and resolution
+One accountable assignee plus optional collaborators/watchers. Suggest only from configured responsibility or cited evidence; review owner confirms. Responses retain actor/time/explanation/evidence. Unknown answers stay open. Decision confirmation is separate, append-only and records supporting evidence/supersession; newest messages never silently replace authority. New conflicts link old decisions and reopen/create findings.
+### Context Gap Report
+Goal, dates, analyzed sources, connection/parsing failures, prioritized findings with passages/links, impact/questions/actions, owners/responses, decisions/changes and limitations. Ready requires a successful analysis, usable complete evidence and no open findings; Ready with actions allows only low/medium open findings; Needs clarification covers high open findings, incomplete evidence or failed/unverified analysis. No numerical score. Fixture reports always say test mode.
 
 ## States and Boundaries
-Empty: guide the first input or sample. Loading: show actual server stages. Missing keys: live review unavailable with setup guidance; sample remains usable. Failed parsing or inference: show actionable error and preserve inputs. No findings: show coverage and limitations. Local single-user storage retains the exact records. Live review sends excerpts to enabled model providers; if a Mem0 service is configured, confirmed answer text and project metadata can also be sent there for indexing. Index failure retains local recall.
+Empty/failed input offers paste fallback. Unknown routing blocks project memory. Provider failure produces no fabricated substitute. Edits/deletions preserve history and invalidate affected report snapshots. Authentication, workspace, project and source grants precede every read/mutation/export. Explicit source operations/live analysis disclose external transfer.
 
 ## Product Decisions
-Meta Muse Wonder primary; Groq first fallback; optional NVIDIA second fallback. Case memory and graph support the report. No automatic messages. Every action needs guidance.
-## What We're Building
-The complete local review loop, accessible responsive UI, provider adapters, regression/evaluation tests, setup and demo instructions.
-## Deferred From the POC
-Public multi-user hosting and authenticated sharing, external ticket/messaging integrations, scanned-document OCR, accounts/roles and collaborative assignment workflows. Names entered as owners are currently labels, not registered accounts or notifications.
-## Non-Goals
-Project management, truth certification, automatic project approval, or guaranteed error-free AI.
-## Open Questions
-An initial Muse Wonder run completed; current post-revision live quality still requires a successful run from a process with provider access. Real fallback account access and live Mem0 embeddings are unverified. User demand and formal user usability sessions remain unvalidated. Final user readiness confirmation is not recorded.
+Current user brief is authoritative. Local FastAPI/SQLite/native browser UI is an engineering choice to minimize Windows setup, not an invented learner preference.
 
+## What We're Building
+Core goal-review/resolution loop, team authorization and routing contracts, manual ingestion and isolated adapter clients with truthful test modes. Real-account/live-model verification is distinct acceptance work.
+
+## Deferred From the POC
+Enterprise identity, unattended capture and production Baileys operation pending actual service verification.
+
+## Non-Goals
+Generic chatbot, autonomous decisions, project-management suite, message sending, document rewriting or numerical readiness scoring.
+
+## Open Questions
+Fresh-repository model endpoints/accounts and Vexa/Slack/Baileys connections are unverified. No personal learning uncertainty or final user feedback is invented.
