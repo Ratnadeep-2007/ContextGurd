@@ -25,8 +25,10 @@ rem ------------------------------------------------------------
 if exist "%VENV_PY%" (
   "%VENV_PY%" --version >nul 2>&1
   if not errorlevel 1 goto :venv_ok
-  echo [ContextGuard] The existing .venv looks broken. Recreating it...
-  rmdir /s /q "%~dp0.venv" >nul 2>&1
+  echo [ContextGuard] Python in the existing .venv cannot run.
+  echo Rename the .venv folder to .venv-backup, then run start.bat again.
+  echo The existing environment has been preserved.
+  goto :fail
 )
 
 echo [ContextGuard] First-time setup 1 of 3: creating Python environment...

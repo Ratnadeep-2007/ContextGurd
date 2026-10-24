@@ -26,6 +26,8 @@ The frontend build is served by FastAPI on the same origin; there is no second p
 
 `start.bat` works from any working directory and always uses the project's own `.venv`, never a random `python` on PATH. A second launch recognizes a healthy ContextGuard instance, opens the browser, and exits successfully instead of failing on an occupied port. If another service owns port 8017, the launcher reports the conflict without stopping that service.
 
+If Python in an existing `.venv` cannot run, the launcher preserves it and asks you to rename it to a backup before retrying. It does not automatically delete the environment. An incomplete frontend build also produces an explicit repair message.
+
 Development: `python scripts/dev.py` starts the API on 8017 and Vite on http://localhost:5173. Ctrl+C stops both. If using the virtual environment, invoke `.venv\Scripts\python.exe scripts/dev.py` instead. These commands work from the repository root; PowerShell does not need script-execution policy changes when using `npm.cmd`.
 
 ## Try the complete sample
@@ -93,11 +95,11 @@ SQLite stores optimistic case revisions to reject stale writes. Runs interrupted
 ## Test and evaluate
 
 ```powershell
-python -m pytest -q
+.venv/Scripts/python.exe -m pytest -q
 cd frontend
 npm.cmd run build
 cd ..
-python scripts/serve.py
+.venv/Scripts/python.exe scripts/serve.py
 # In another terminal, while the server is running:
 node scripts/browser-check.mjs
 ```
@@ -107,6 +109,8 @@ Browser verification uses Playwright and installed Microsoft Edge (`msedge`). If
 `python scripts/evaluate.py` checks that 12 fixed bundles are ready without sending data. `python scripts/evaluate.py --live` sends fictional bundles to configured providers and incurs API usage. Its coarse expected/forbidden finding-type checks do not measure semantic evidence precision; human evidence review remains required. Results are written to `artifacts/live-evaluation.json` only when executed.
 
 Recorded checks and known limitations: [evaluation/results.md](evaluation/results.md). Local sample/API/browser verification is distinct from live model evaluation, user demand research, and clean-machine installation verification.
+
+Latest release audit: [evaluation/release-readiness.md](evaluation/release-readiness.md). Tests use a separate bootstrap database and API-only test applications, so running them does not interrupt a user's normal review or depend on a concurrent frontend rebuild. On macOS/Linux, use `.venv/bin/python` instead of the Windows executable above.
 
 ## Where to change things
 
@@ -127,9 +131,9 @@ The offline [app map](devpost/app-map.html) follows the actual clarification act
 
 ## Hackathon work
 
-The official Devpost Learn Skill Pack was cloned under ignored `tools/learn-ai-basics` and read directly in the coding agent. `devpost/scope.md`, `prd.md`, `spec.md`, and `checklist.md` capture the previously approved idea and this implementation. No invented interview answers, user testing, git commits, submission, live deployment, or final user sign-off are claimed. The original context/research documents describe planning history; see `devpost/checklist.md` and `evaluation/results.md` for implemented/verified status.
+The official Devpost Learn Skill Pack was cloned under ignored `tools/learn-ai-basics` and read directly in the coding agent. Its guidance was partially applied to the existing approved idea and implementation; a complete original 1-start through 6-ship sequence is not claimed. `devpost/scope.md`, `prd.md`, `spec.md`, and `checklist.md` record the plan, accepted changes and remaining learner checkpoints. Public source is at https://github.com/Ratnadeep-2007/ContextGurd with consolidated initial commit `2b6df12`; subsequent local audit updates require their own publication checkpoint. User screenshots and requested revisions are recorded as feedback, not a formal user study or final ready-to-ship sign-off. See [build history](docs/build-history.md) and the current checklist.
 
-Before submission, complete your own hands-on review, configure and evaluate live inference, record the functioning demo, create a public licensed repository, and write your own submission copy. Nothing was published by this build task.
+Before submission, complete the final hands-on review, validate the current live flow from a process with provider access, record the functioning demo, publish prepared repository updates, and write your own submission/exit-survey answers. No completed Devpost submission or public demo-video URL is recorded. Public app deployment is optional for this local proof of concept.
 
 ## License
 

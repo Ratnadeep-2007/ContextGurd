@@ -27,7 +27,7 @@ def main() -> int:
     if already_running():
         print("ContextGuard is already running: http://localhost:8017", flush=True)
         return 0
-    if not (ROOT / "frontend/dist/index.html").exists():
+    if not (ROOT / "frontend/dist/index.html").is_file() or not (ROOT / 'frontend/dist/assets').is_dir():
         print("Frontend build missing. Run npm.cmd install and npm.cmd run build inside the frontend folder, then launch start.bat again.", file=sys.stderr)
         return 1
     try:

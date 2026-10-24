@@ -68,7 +68,7 @@ class VersionInput(Model):
     version: int
 
 
-def create_app(db_path: str | None = None, memory_index=None) -> FastAPI:
+def create_app(db_path: str | None = None, memory_index=None, serve_frontend=True) -> FastAPI:
     store = Store(db_path)
     memory = ProjectMemory(store, memory_index)
     executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="contextguard")
@@ -420,7 +420,7 @@ def create_app(db_path: str | None = None, memory_index=None) -> FastAPI:
         return brief(case)
 
     dist = ROOT / "frontend" / "dist"
-    if dist.exists():
+    if serve_frontend and os.getenv('CONTEXTGUARD_API_ONLY') != '1' and (dist / 'index.html').is_file() and (dist / 'assets').is_dir():
         from fastapi.staticfiles import StaticFiles
         app.mount("/assets", StaticFiles(directory=dist / "assets"), name="assets")
         @app.get("/")

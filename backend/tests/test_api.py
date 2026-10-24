@@ -6,6 +6,18 @@ from backend.app.store import Store
 from .conftest import finish
 
 
+def test_api_runs_when_frontend_build_is_incomplete(tmp_path,monkeypatch):
+    from backend.app import main
+    from fastapi.testclient import TestClient
+    monkeypatch.delenv('CONTEXTGUARD_API_ONLY',raising=False)
+    monkeypatch.setattr(main,'ROOT',tmp_path)
+    dist=tmp_path/'frontend'/'dist';dist.mkdir(parents=True)
+    (dist/'index.html').write_text('<html></html>')
+    with TestClient(main.create_app(str(tmp_path/'partial.sqlite3'))) as api_client:
+        assert api_client.get('/api/health').status_code==200
+        assert api_client.get('/').status_code==404
+
+
 def test_sample_report_and_brief(client, sample):
     assert len(sample["sources"]) == 4
     assert len(sample["report"]["findings"]) == 4
