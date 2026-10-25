@@ -63,8 +63,12 @@ def manual(filename, content):
 
 
 class Vexa:
-    def __init__(self, base, key, transport=None):
-        self.client = httpx.Client(base_url=base.rstrip('/') + '/', headers={'X-API-Key': key},
+    def __init__(self, base, key=None, transport=None, bot_key=None, tx_key=None):
+        # Vexa keys carry scopes: bot (send/stop bots) and tx (read transcripts).
+        # One combined key may hold both; separate dashboard keys are also accepted.
+        self.bot_key = bot_key or key or ''
+        self.tx_key = tx_key or key or ''
+        self.client = httpx.Client(base_url=base.rstrip('/') + '/',
                                    timeout=20, trust_env=False, transport=transport)
 
     @staticmethod
@@ -73,9 +77,12 @@ class Vexa:
         if platform not in patterns or not re.fullmatch(patterns[platform], meeting_id):
             raise AdapterFailure('Choose a supported platform and its native meeting ID.')
 
-    def request(self, method, path, **kwargs):
+    def request(self, method, path, key, **kwargs):
+        if not key:
+            scope = 'transcription (vxa_tx_)' if method == 'GET' else 'bot (vxa_bot_)'
+            raise AdapterFailure(f'Vexa {scope} key is not configured.')
         try:
-            response = self.client.request(method, path, **kwargs)
+            response = self.client.request(method, path, headers={'X-API-Key': key}, **kwargs)
             response.raise_for_status()
             return response.json()
         except (httpx.HTTPError, ValueError):
@@ -88,17 +95,17 @@ class Vexa:
         payload = {'platform': platform, 'native_meeting_id': meeting_id, 'bot_name': 'ContextGuard — authorized notes', 'recording_enabled': False}
         if passcode:
             payload['passcode'] = passcode
-        self.request('POST', 'bots', json=payload)
+        self.request('POST', 'bots', self.bot_key, json=payload)
         return {'status': 'requested', 'note': 'Joining is not confirmed. A host may need to admit the bot.'}
 
     def stop(self, platform, meeting_id):
         self.validate(platform, meeting_id)
-        self.request('DELETE', f'bots/{platform}/{meeting_id}')
+        self.request('DELETE', f'bots/{platform}/{meeting_id}', self.bot_key)
         return {'status': 'stop_requested', 'note': 'The Vexa stop request was accepted.'}
 
     def fetch(self, platform, meeting_id):
         self.validate(platform, meeting_id)
-        payload = self.request('GET', f'transcripts/{platform}/{meeting_id}')
+        payload = self.request('GET', f'transcripts/{platform}/{meeting_id}', self.tx_key)
         rows = payload.get('segments', [])
         if not rows:
             raise AdapterFailure('No transcript is available yet. Check admission or try again; no content was invented.')

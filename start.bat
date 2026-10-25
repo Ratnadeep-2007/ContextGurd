@@ -40,6 +40,7 @@ goto fail
 echo The selected Python cannot run or is older than 3.11. It has been preserved.
 echo Rename .venv to .venv-backup and run start.bat again.
 :fail
-echo Setup or startup did not complete. Read the error above. No reviews were deleted.
+echo The requested setup, startup or verification step did not complete.
+echo Read the error above. No reviews were deleted.
 if not "%CONTEXTGUARD_NO_PAUSE%"=="1" pause
 exit /b 1

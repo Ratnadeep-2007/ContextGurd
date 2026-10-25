@@ -42,6 +42,27 @@ def test_vexa_join_consent_and_partial_transcript():
     assert passages[0].item_id == 's1'
 
 
+def test_vexa_separate_bot_and_transcription_keys():
+    seen = {}
+    def handle(req):
+        seen[req.method] = req.headers.get('x-api-key')
+        if req.method == 'POST':
+            return httpx.Response(200, json={'status': 'requested'})
+        return httpx.Response(200, json={'status': 'completed', 'segments': [{'segment_id': 's1', 'start': 1, 'end': 2,
+                                           'text': 'Scoped transcript', 'speaker': 'Alex', 'completed': True}]})
+    vexa = Vexa('https://vexa.example', transport=httpx.MockTransport(handle),
+                bot_key='bot-secret', tx_key='tx-secret')
+    assert vexa.join('google_meet', 'abc-defg-hij', True)['status'] == 'requested'
+    passages, _ = vexa.fetch('google_meet', 'abc-defg-hij')
+    assert passages[0].text == 'Scoped transcript'
+    assert seen == {'POST': 'bot-secret', 'GET': 'tx-secret'}
+    unscoped = Vexa('https://vexa.example', transport=httpx.MockTransport(handle))
+    with pytest.raises(AdapterFailure, match='bot'):
+        unscoped.join('google_meet', 'abc-defg-hij', True)
+    with pytest.raises(AdapterFailure, match='transcription'):
+        unscoped.fetch('google_meet', 'abc-defg-hij')
+
+
 def test_vexa_missing_transcript():
     v = Vexa('https://vexa.example', 'test', httpx.MockTransport(lambda req: httpx.Response(200, json={'segments': []})))
     with pytest.raises(AdapterFailure):

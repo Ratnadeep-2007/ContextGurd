@@ -1,6 +1,6 @@
 # ContextGuard architecture
 
-This describes the fresh implementation in this repository, not the earlier application. Source adapters have no project-memory engines of their own.
+This describes the fresh implementation in this repository, not the earlier application. The newer [conversation-first target](conversation-first-plan.md) adds automatic whole-conversation processing, project segmentation, unrelated-content disposal and consolidated documents; those changes remain pending. Source adapters have no project-memory engines of their own.
 
 ```mermaid
 flowchart TD
@@ -15,8 +15,8 @@ flowchart TD
     WA --> Evidence
     Evidence --> Raw[Preserve original selected import + source revisions]
     Raw --> Route[Explicit project, else approved mapping]
-    Route -->|unconfirmed| Unknown[Unknown Context inbox: no project memory]
-    Unknown -->|authorized human confirms passage route| Route
+    Route -->|unconfirmed| Unknown[Leave unassigned: no project analysis or memory]
+    Unknown -.->|only if a user explicitly routes it later| Route
     Route -->|confirmed + authorized| DB[SQLite project evidence + versioned decisions]
     DB --> Review[Goal/date/source snapshot]
     Review -->|explicit transfer consent| LLM[Muse Wonder → Groq → NVIDIA]
@@ -48,3 +48,7 @@ Unknown context cannot read or write project decisions. A model suggestion never
 Slack pulls are bounded and never claim full workspace coverage. A missing item from a complete selected pull becomes unavailable/uncertain, not a proven deletion; channel history does not invalidate thread-only replies. Actual deletion events create tombstone revisions. Vexa partial text remains partial, and empty speakers remain unattributed.
 
 Baileys live pairing is deliberately disabled. Vexa/Slack REST/OAuth contracts are implemented and tested with controlled responses; real services and accounts remain unverified. Windows DPAPI token protection was denied in this execution environment, and OAuth correctly refused plaintext persistence.
+
+## Unclear project content
+
+Leave passages without a confirmed project unassigned. They do not trigger a project question, a matching retry, a finding assignment or a project-memory lookup/write. Preserve their original source. Analyze only confirmed, authorized project passages. The requested flow diagram omits the missing/partial-content panel; actual connection and parsing failures still surface honestly rather than appearing as successful analysis. The separate Unknown Context page in the current UI remains a legacy implementation; its removal and the Sources/Project Reviews reorganization are pending.

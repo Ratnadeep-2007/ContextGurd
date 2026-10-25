@@ -142,7 +142,7 @@ def create_app(db_path=None, providers=None, load_settings=True):
                 pass
         return {'actor': service.public_user(user), 'users': [service.public_user(u) for u in store.all('user', user['workspace'])],
                 'projects': projects, 'sources': sources, 'unknown': service.visible_evidence(user, unknown=True), 'reviews': reviews,
-                'connections': {'vexa': 'Configured, live unverified' if os.getenv('VEXA_API_KEY') else 'Not configured; contract tests only',
+                'connections': {'vexa': 'Configured, live unverified' if (os.getenv('VEXA_API_KEY') or os.getenv('VEXA_BOT_KEY') or os.getenv('VEXA_TX_KEY')) else 'Not configured; contract tests only',
                                 'slack': 'OAuth / selected pull client; live unverified',
                                 'whatsapp': 'Test/manual import only; live Baileys pairing disabled'},
                 'privacy': 'Local records are stored on this computer. Explicit live analysis sends selected evidence and prior decisions to external model providers. Vexa and Slack operations contact their services.'}
@@ -278,9 +278,11 @@ def create_app(db_path=None, providers=None, load_settings=True):
                 try:
                     if action.startswith('vexa_'):
                         require(source['type'] == 'vexa', 'Select a Vexa meeting source.')
-                        require(os.getenv('VEXA_API_KEY'), 'Vexa key is not configured.', 409)
+                        require(os.getenv('VEXA_API_KEY') or os.getenv('VEXA_BOT_KEY') or os.getenv('VEXA_TX_KEY'),
+                                'Vexa key is not configured.', 409)
                         platform, meeting_id = source['container'].split(':', 1)
-                        client = Vexa(os.getenv('VEXA_BASE_URL', 'https://api.cloud.vexa.ai'), os.environ['VEXA_API_KEY'])
+                        client = Vexa(os.getenv('VEXA_BASE_URL', 'https://api.cloud.vexa.ai'), os.getenv('VEXA_API_KEY'),
+                                      bot_key=os.getenv('VEXA_BOT_KEY'), tx_key=os.getenv('VEXA_TX_KEY'))
                         if action == 'vexa_join':
                             return client.join(platform, meeting_id, True, p.get('passcode'))
                         if action == 'vexa_stop':

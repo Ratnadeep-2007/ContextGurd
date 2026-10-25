@@ -10,6 +10,8 @@ Open **http://127.0.0.1:8027**. Create the first local owner account with a pass
 
 The launcher checks Python 3.11+, pinned dependencies and port 8027, creates a secret-free `.env` only when missing, prints connection readiness without key values, and opens the browser after the server is ready. Launching it again reuses this same running workspace. An occupied port is reported without stopping any process. `start.bat --check` shows setup status without starting the app. Set `CONTEXTGUARD_NO_BROWSER=1` to skip opening the browser, or `CONTEXTGUARD_NO_PAUSE=1` for noninteractive error handling. Available artifact-local package wheels are tried before online installation. See [current setup status](docs/setup-status.md).
 
+`start.bat --live-check` explicitly tests real models/fallback access using only the bundled fictional documents and saves redacted local evidence. This contacts external providers; it is separate from ordinary startup/`--check`. Earlier sandboxed attempts were blocked by Windows; later normal-session runs verified Muse Wonder and Groq independently and a controlled-primary-failure path through real NVIDIA fallback. NVIDIA as an isolated primary remains latency-bound. See [real testing and account requirements](docs/live-testing.md). Baileys live pairing remains incomplete.
+
 Manual commands:
 
 ```powershell
@@ -40,20 +42,20 @@ Project identity order: explicit project → approved source mapping → Unknown
 
 The launcher creates **this project's** `.env` from `.env.example` if absent. Configure keys privately; the application never loads another project's `.env`. During the user's authorized local setup, existing supported model keys/settings were migrated into the ignored new `.env`, including the Muse model/endpoint used by the earlier app. No database, source content or connector session was copied, and no live call was made. Muse Wonder is primary via `MODEL_BASE_URL`, `MODEL_NAME`, `MODEL_API_KEY`. For a new installation, enter the actual provider-supplied OpenAI-compatible base URL and model ID. Groq uses `GROQ_API_KEY` / `GROQ_MODEL` (default `openai/gpt-oss-120b`); NVIDIA uses `NVIDIA_API_KEY` / `NVIDIA_MODEL`. Keys are never displayed or committed.
 
-Live analysis requires the explicit external-transfer checkbox. Selected evidence and visible prior decisions may be sent through the configured fallback chain. Schema/citation checks reject invalid findings; failure never silently substitutes fictional results. The model settings are locally present; no live model has been verified in this fresh repository.
+Live analysis requires the explicit external-transfer checkbox. Selected evidence and visible prior decisions may be sent through the configured fallback chain. Schema/citation checks reject invalid findings; failure never silently substitutes fictional results. Muse Wonder and Groq have verified live fictional-document reports; NVIDIA has a verified live fallback report, while isolated-primary runs exceeded the current timeout. These limited checks do not establish exhaustive real-world detection accuracy.
 
 ## Source connection setup and actual status
 
 | Source | Current implementation | What remains unverified |
 |---|---|---|
 | Manual | Pasted text, TXT/MD/PDF/DOCX; filenames/pages/paragraphs, size bounds and visible failures | Broader document corpus and production parser isolation |
-| Vexa | Explicit join/stop/fetch REST client, speaker/time/partial handling, controlled HTTP pipeline tests | Authorized real meeting admission/transcript → report run |
+| Vexa | Local self-hosted gateway configured; dedicated scoped key; separate bot/transcription key support; current bot-status request returns 200 | Actual authorized meeting admission, speech, transcript and final report remain untested |
 | Slack | OAuth/state/expiry, protected-token interface, selected channel/thread/date pulls, links, bounded pagination and revocation/rate-limit errors | Real workspace installation/pulls, token scope behavior and Windows credential-store round trip |
 | WhatsApp/Baileys | Selected-chat Baileys-shaped test-event import and manual TXT fallback | Live pairing/runtime is disabled; no connected WhatsApp integration is claimed |
 
-**Vexa:** configure `VEXA_BASE_URL` and `VEXA_API_KEY`. Register `platform:native_meeting_id` (e.g. `google_meet:abc-defg-hij`; `teams` and `zoom` use numeric native IDs). Select Join and explicitly confirm authorization/participant consent. Fetch is separate; a host may need to admit the bot. Hosted Vexa is external; self-hosting requires Vexa's additional services/Docker, including STT configured at its boundary. ContextGuard does not contain Whisper or an audio transcription pipeline. Recording is disabled in the join request.
+**Vexa:** this working machine is configured to the local self-hosted gateway at `127.0.0.1:18056` with a dedicated ContextGuard key. For another installation, configure `VEXA_BASE_URL` plus a combined bot/transcription-scoped `VEXA_API_KEY`, or separate `VEXA_BOT_KEY` and `VEXA_TX_KEY`. Register `platform:native_meeting_id` (e.g. `google_meet:abc-defg-hij`; `teams` and `zoom` use numeric native IDs). Select Join and explicitly confirm authorization/participant consent. Fetch is separate; a host may need to admit the bot. The current local deployment uses its own local CPU transcription service at the Vexa boundary; ContextGuard consumes transcripts and contains no duplicate audio/STT pipeline. Recording is disabled in the join request. A 404 for a nonexistent meeting is not a completed transcript test.
 
-**Slack:** configure `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET` and a redirect URI approved in your Slack app (default `http://127.0.0.1:8027/api/slack/callback`; use an explicitly configured callback approach permitted by Slack). Settings opens official OAuth with public-channel read/history scopes only. Private channels require separately approved `groups:read`/`groups:history`. Register a selected `TEAM_ID:CHANNEL_ID` source and supply a specific thread/date range if needed. An explicit locally configured token plus `SLACK_TEAM_ID` is an alternative. OAuth tokens use Windows-current-user DPAPI; this execution environment denied DPAPI, so real persistence fails safely. No plaintext fallback is written. Access logs are disabled. Local disconnect disables local access; revoke the app in Slack to invalidate its external token.
+**Slack:** configure `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET` and a redirect URI approved in your Slack app (default `http://127.0.0.1:8027/api/slack/callback`; use an explicitly configured callback approach permitted by Slack). Settings opens official OAuth with public-channel read/history scopes only. Private channels require separately approved `groups:read`/`groups:history`. Register a selected `TEAM_ID:CHANNEL_ID` source and supply a specific thread/date range if needed. An explicit locally configured token plus `SLACK_TEAM_ID` is an alternative. OAuth tokens use Windows-current-user DPAPI: a synthetic round trip passed in the normal user session; the earlier sandboxed session denied it. A real Slack OAuth token round trip remains untested. No plaintext fallback is written. Access logs are disabled. Local disconnect disables local access; revoke the app in Slack to invalidate its external token.
 
 Slack is explicitly pulled, not an Events API subscription. Edits/deletions observed in returned payloads create revisions/tombstones. Missing items in complete selected pulls are marked uncertain/unavailable, not proven deleted. Thread-only replies are not retired by channel history. Truncated pulls remain partial. There is no claim of complete Slack workspace coverage.
 
@@ -71,7 +73,11 @@ Current evidence and limitations are recorded in [verification](docs/verificatio
 
 ## Design, privacy and planning
 
+- [UI refresh and original ContextGuard comparison](docs/ui-refresh.md) — fresh presentation code inspired by the outer app, with locally bundled typography/icons, a selectable finding/detail report, filters and mobile navigation.
 - [Architecture and data flow](docs/architecture.md)
+- [Current conversation-first product direction](docs/conversation-first-plan.md) — target workflow and work still required.
+- [Complete flow image](docs/diagrams/contextguard-complete-flow.png) and [editable diagram](docs/diagrams/contextguard-complete-flow.html)
+- [Fictional test accounts, assigned findings and walkthrough](docs/test-users.md)
 - [Privacy and service boundaries](docs/privacy.md)
 - [Implementation audit](docs/implementation-audit.md)
 - [Scope](devpost/scope.md), [PRD](devpost/prd.md), [spec](devpost/spec.md), [build checklist](devpost/checklist.md)

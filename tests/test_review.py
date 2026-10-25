@@ -82,6 +82,23 @@ def test_failed_provider_does_not_fabricate(env):
     assert result['status'] == 'failed' and result['findings'] == []
 
 
+def test_unassigned_content_is_left_without_model_or_memory_lookup(env, monkeypatch):
+    s, actor, other, project, second, source = env
+    rows = ingest(env)
+    reviews = Reviews(s.store)
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError('Unassigned content must not trigger model or memory lookup')
+
+    monkeypatch.setattr(reviews, 'decisions', forbidden)
+    monkeypatch.setattr(reviews.providers, 'analyze', forbidden)
+    result = reviews.analyze(actor, project['id'], 'Check our pilot readiness', [source['id']], consent=True)
+    assert result['status'] == 'failed'
+    assert result['evidence'] == result['memory'] == result['findings'] == []
+    saved = s.store.get('evidence', rows['id'])
+    assert saved['routing'] == 'unknown' and saved['project_id'] is None
+
+
 def test_supersede_and_conflicting_new_review_links_prior_decision(env):
     r, a, b, p, q, source, rows, review = setup(env)
     f = review['findings'][0]
@@ -116,6 +133,21 @@ def test_provider_fallback_and_schema_validation(monkeypatch):
         return httpx.Response(200, json={'choices': [{'message': {'content': json.dumps({'findings': [], 'limitations': ['Controlled test']})}}]})
     result, provider = Providers(httpx.MockTransport(handler)).analyze('goal', [], [])
     assert provider == 'Groq' and len(urls) == 2
+
+
+def test_provider_retries_transient_quota_response_once(monkeypatch):
+    monkeypatch.setenv('MODEL_API_KEY', 'test-secret')
+    monkeypatch.setenv('MODEL_BASE_URL', 'https://meta.example/v1')
+    monkeypatch.setenv('MODEL_NAME', 'configured-model')
+    monkeypatch.setenv('GROQ_API_KEY', '')
+    calls = []
+    def handler(req):
+        calls.append(req.url.host)
+        if len(calls) == 1:
+            return httpx.Response(429, headers={'Retry-After': '0'}, json={'error': 'quota'})
+        return httpx.Response(200, json={'choices': [{'message': {'content': json.dumps({'findings': [], 'limitations': ['Controlled test']})}}]})
+    result, provider = Providers(httpx.MockTransport(handler)).analyze('goal', [], [])
+    assert provider == 'Muse Wonder' and len(calls) == 2
 
 
 def test_no_unknown_memory_leak(env):

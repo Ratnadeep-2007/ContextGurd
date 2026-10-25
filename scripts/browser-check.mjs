@@ -21,7 +21,9 @@ try{
  await page.getByLabel('Use fictional test analysis').check();
  await page.getByRole('button',{name:'Run goal review',exact:true}).click();
  await expect(page.getByRole('heading',{name:'Can the fictional v2 pilot proceed?'})).toBeVisible();
- await expect(page.locator('article[data-finding]')).toHaveCount(6);checks.push('Three fictional sources → six verified fixture findings, explicit test label');
+ await expect(page.locator('[data-select-finding]')).toHaveCount(6);await expect(page.locator('article[data-finding]')).toHaveCount(1);checks.push('Three fictional sources → six fixture findings, selected detail and explicit test label');
+ await page.locator('[data-select-finding]').nth(1).click();await expect(page.locator('article[data-finding] h2')).toHaveText('Security approval is missing');
+ await page.locator('[data-select-finding]').first().focus();await page.keyboard.press('Enter');await expect(page.locator('article[data-finding] h2')).toHaveText('Pilot date disagreement');checks.push('Finding list supports click and keyboard selection');
  const first=page.locator('article[data-finding]').first();
  const select=first.locator('select[name=choice]');await expect(select.locator('option').last()).toHaveText('Other');
  await select.selectOption('other');await expect(first.getByLabel('Your answer or explanation')).toBeVisible();
@@ -30,6 +32,7 @@ try{
  await expect(page.locator('article[data-finding]').first().getByText('Use January 18 for the v2 pilot; sponsor confirmed.')).toBeVisible();
  await page.locator('article[data-finding]').first().getByRole('button',{name:'Confirm resolution'}).click();
  await expect(page.locator('article[data-finding]').first().getByText('resolved',{exact:true})).toBeVisible();checks.push('Context options/Other → response → authorized decision confirmation');
+ await page.getByRole('button',{name:/Recorded/}).click();await expect(page.locator('[data-select-finding]')).toHaveCount(1);await expect(page.locator('article[data-finding] h2')).toHaveText('Pilot date disagreement');await page.getByRole('button',{name:/All findings/}).click();await expect(page.locator('[data-select-finding]')).toHaveCount(6);checks.push('Finding filters preserve recorded decisions and restore the full list');
  const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('link',{name:'Download report'}).click()]);
  await download.saveAs('artifacts/browser/context-gap-report.md');checks.push('Stored report download');
  await page.reload();await page.getByRole('button',{name:/Can the fictional v2 pilot proceed/}).first().click();
@@ -43,7 +46,7 @@ try{
  await page.getByRole('button',{name:/Unknown Context \(1\)/}).click();await expect(page.getByRole('heading',{name:'Unknown Context',exact:true})).toBeVisible();
  await page.locator('form[data-form=route]').getByRole('button',{name:'Assign to project'}).click();
  await expect(page.getByRole('button',{name:/Unknown Context \(0\)/})).toBeVisible();checks.push('Manual unknown input → confirmed project routing');
- await page.setViewportSize({width:390,height:844});await page.getByRole('button',{name:'Review',exact:true}).click();
+ await page.setViewportSize({width:390,height:844});await page.getByRole('button',{name:'Open workspace navigation'}).click();await expect(page.getByRole('button',{name:'Project reviews',exact:true})).toBeVisible();await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Open workspace navigation'})).toBeFocused();await page.getByRole('button',{name:'Open workspace navigation'}).click();await page.getByRole('button',{name:'Project reviews',exact:true}).click();
  await page.screenshot({path:'artifacts/browser/mobile.png',fullPage:true});
  if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2))throw Error('Mobile horizontal overflow');checks.push('390px mobile layout');
  if(errors.length)throw Error(errors.join('\n'));

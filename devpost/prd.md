@@ -6,16 +6,18 @@ status: approved
 Authority: the user's detailed implementation brief. Learner hands-on feedback is recorded separately.
 
 ## The Core Journey
-Create/sign into a local account, select project and goal, select authorized sources/dates, review parsing/routes, run analysis, inspect cited findings, assign/respond/confirm, export the Context Gap Report. Explicit fictional demo actions create labeled test sources.
+Target: authorized capture/upload, complete-input interpretation, project-specific evidence and reviews, unrelated-content disposal, review filtering, human resolution, versioned memory, report/consolidated-document output. See [conversation-first-plan](../docs/conversation-first-plan.md). Current implementation still uses manual project-first analysis and retains original/unassigned content. Automatic segmentation, processing, disposal and consolidated-document output remain to be built. Explicit fictional demo actions create labeled test sources.
 
 ## Look and Feel
 Minimal native controls, readable system typography, responsive columns, solid ivory/white/forest with amber/red statuses, keyboard focus and useful guide sentences. No gradients or generic AI slogans.
+
+UI refinement requested by the user: take visual inspiration from the outer ContextGuard's ivory/sage sidebar, DM Sans body text, serif editorial headings, quiet borders and source quotation cards. The report uses a selectable findings index beside one detail with All/Needs attention/Recorded filters; mobile stacks those surfaces and exposes workspace navigation through a keyboard-operable drawer. Independent presentation code preserves the rebuild's team/source/confirmation behavior. Optional collaborators/watchers are collapsed to keep the primary clarification task clear.
 
 ## Features and Behavior
 ### Identity and source access
 Workspace owners manage identifiable accounts; projects grant owner, decision_owner or reviewer roles. Source access is independent. Review owners manage assignment/dismissal; accountable assignees answer; only project owners/decision_owners confirm. Authorship does not imply responsibility.
 ### Evidence and routing
-All adapters preserve workspace/source/container/item IDs, original passage, author/external identity, date, link/location, parsing state, consent and uncertainty. Routing order: explicit accessible project, approved source mapping, otherwise unknown. Model suggestions are never confirmed routes. Unknown items cannot access memory, notify assignees or produce project findings. Users may assign, keep, dismiss or create a project. Confirmed segments retain full original import and provenance; no silent full-item duplication.
+All adapters preserve workspace/source/container/item IDs, original passage, author/external identity, date, link/location, parsing state, consent and uncertainty. Routing order: explicit accessible project, approved source mapping, otherwise unknown. Model suggestions are never confirmed routes. Unknown items cannot access memory, notify assignees or produce project findings. If the project remains unclear, leave the passage unassigned and continue with matched content. Do not force a clarification, guess a project, retry analysis to find a match, or notify an assignee. An authorized user may explicitly route it later; no dedicated Unknown Context tab is planned. Confirmed segments retain full original import and provenance; no silent full-item duplication.
 ### Sources
 Manual upload failures retain filename/error and offer paste fallback. Explicit Vexa join/fetch controls preserve speaker/time and partial transcripts without internal STT. Slack OAuth uses minimal scopes and selected channel/thread/date pulls; revoked tokens, rate limits, edits/deletions and truncation are visible. Baileys is unofficial and stays isolated/test-only until safe live pairing is verified; manual WhatsApp import remains available. No sending or all-chat scraping.
 ### Goal-specific findings
@@ -41,4 +43,4 @@ Enterprise identity, unattended capture and production Baileys operation pending
 Generic chatbot, autonomous decisions, project-management suite, message sending, document rewriting or numerical readiness scoring.
 
 ## Open Questions
-Fresh-repository model endpoints/accounts and Vexa/Slack/Baileys connections are unverified. No personal learning uncertainty or final user feedback is invented.
+Model endpoints/accounts are live-verified with fictional documents for Muse Wonder and Groq, and for the controlled-failure fallback via NVIDIA (NVIDIA-as-primary is latency-bound; see docs/live-testing.md). Vexa/Slack/Baileys live connections remain unverified and blocked on authorized account configuration. No personal learning uncertainty or final user feedback is invented.

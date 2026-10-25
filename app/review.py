@@ -139,7 +139,7 @@ class Reviews(Service):
                 failures.append(self.source(actor, sid)['label'] + ': no usable routed passages in the selected date range')
         review = {'id': ident(), 'workspace': actor['workspace'], 'project_id': project_id, 'owner_id': actor['id'],
                   'goal': goal.strip(), 'source_ids': list(dict.fromkeys(source_ids)), 'start': start, 'end': end,
-                  'evidence': selected, 'memory': self.decisions(actor, project_id), 'findings': [], 'failures': failures,
+                  'evidence': selected, 'memory': self.decisions(actor, project_id) if selected else [], 'findings': [], 'failures': failures,
                   'limitations': ['Citation verification establishes provenance, not factual truth or exhaustive detection.'],
                   'status': 'complete', 'created': now(), 'test_mode': test_mode, 'provider': None, 'stale': False}
         if not selected:

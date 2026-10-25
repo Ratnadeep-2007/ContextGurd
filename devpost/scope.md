@@ -14,10 +14,10 @@ Check whether selected evidence is complete, consistent and reliable enough for 
 Project owners and identifiable team members deciding whether a particular action has sufficient reliable context.
 
 ## The Core Loop
-Choose project and goal → select authorized sources and dates → inspect parsing and project matches → confirm unknown routes → analyze → inspect findings beside evidence → assign/respond/confirm → update and export the Context Gap Report.
+Authorized capture/upload → interpret the complete conversation → extract project evidence → discard confidently unrelated content → generate project reviews → filter and inspect findings → assign/respond/confirm → update decisions → export the report or a consolidated document. See [the current direction and implementation boundary](../docs/conversation-first-plan.md). The earlier manual project-first flow remains the implemented behavior.
 
 ## Inspiration & Identity
-Local Windows, minimal solid ivory/forest/ink UI, no gradients, guide sentences. Synora informs only the high-level adapter/shared-context/unknown-inbox pattern.
+Local Windows, minimal solid ivory/forest/ink UI, no gradients, guide sentences. Synora informs only the high-level adapter/shared-context/routing pattern. Current direction: Sources handles connections/capture, Project Reviews handles project content and findings, and unclear project content is left unassigned without a separate Unknown Context tab. The navigation reorganization remains pending.
 
 ## Why This Matters to the Learner
 A repeatable plan-first workflow and a working, reviewed and tested application. The learner supplied the current direction and delegated implementation decisions.

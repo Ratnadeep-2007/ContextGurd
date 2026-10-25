@@ -21,6 +21,12 @@ The requested separate GitHub repository was not created. The user then explicit
 
 The published tree is checked against the committed local source tree and individual blob hashes. Configuration values, learner context, databases, cached packages and test artifacts are excluded. Forty-nine automated tests and seven grouped fictional browser checks are recorded in docs/verification.md; live providers/source accounts remain separately unverified.
 
+## October 25 branch update
+
+The user authorized updating the existing `contextguard-learn-rebuild` branch again. The new snapshot includes the local UI refresh and bundled assets, bounded provider retries, separate Vexa bot/transcript key support, reconciled integration status, fictional assignment seeding, and the current conversation-first plan and diagram. Validation for publication: 62 automated tests passed; the publishable worktree and reachable local history were scanned without credential findings. Four fictional accounts were also checked through the local HTTP/browser UI. Their passwords, projects/database and browser artifacts remain local and are excluded. Automatic conversation segmentation/deletion and consolidated-document generation are documented targets, not implemented features. No new live model or source connection was performed for publication.
+
+The snapshot is appended to the existing branch history, without replacing main or rewriting the earlier snapshot. Local commits retain independent history, as described above.
+
 ## Skill Pack evidence
 
 The official pack was installed locally. Reported onboarding facts, the learner's current detailed written product/implementation direction, fresh scope/PRD/spec/checklist, verified implementation slices and a static app map are recorded. Planning authority is the explicit written implementation brief; no retrospective six-stage interview is invented. The final hands-on readiness checkpoint, learner demo video and submitted Devpost entry are not claimed complete.

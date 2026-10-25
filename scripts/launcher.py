@@ -98,7 +98,7 @@ def settings_status(root=ROOT):
         'Muse Wonder': present('MODEL_API_KEY', 'MODEL_BASE_URL', 'MODEL_NAME'),
         'Groq fallback': present('GROQ_API_KEY'),
         'NVIDIA fallback': present('NVIDIA_API_KEY', 'NVIDIA_MODEL'),
-        'Vexa': present('VEXA_API_KEY'),
+        'Vexa': present('VEXA_API_KEY') or present('VEXA_BOT_KEY', 'VEXA_TX_KEY'),
         'Slack OAuth': present('SLACK_CLIENT_ID', 'SLACK_CLIENT_SECRET'),
         'Slack local token': present('SLACK_BOT_TOKEN', 'SLACK_TEAM_ID'),
     }
@@ -132,11 +132,12 @@ def open_when_ready():
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true', help='Show local setup status without starting the server')
+    parser.add_argument('--live-check', action='store_true', help='Explicitly test real model access/fallbacks with fictional documents')
     args = parser.parse_args(argv)
     os.chdir(ROOT)
     ensure_env()
     state, health = probe()
-    if not args.check and state == 'occupied':
+    if not args.check and not args.live_check and state == 'occupied':
         print('Port 8027 belongs to another process or an older app instance. Close that window or use its existing URL. No process was stopped.', flush=True)
         return 1
     missing = missing_dependencies()
@@ -149,6 +150,8 @@ def main(argv=None):
             print('[Setup] Installation could not finish. Your existing environment and reviews were preserved.', flush=True)
             return 1
     show_status()
+    if args.live_check:
+        return subprocess.call([sys.executable, str(ROOT / 'scripts/verify_live.py'), '--live', '--fallback'])
     if args.check:
         print('Local app: ' + ('already running' if state == 'ours' else 'not running' if state == 'free' else 'port occupied'), flush=True)
         return 0

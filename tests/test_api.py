@@ -71,7 +71,8 @@ def test_oauth_scopes_state_and_replay_guard(client, monkeypatch):
 
 def test_no_vexa_join_without_consent_or_key(client, monkeypatch):
     login(client)
-    monkeypatch.delenv('VEXA_API_KEY', raising=False)
+    for name in ('VEXA_API_KEY', 'VEXA_BOT_KEY', 'VEXA_TX_KEY'):
+        monkeypatch.delenv(name, raising=False)
     source = cmd(client, 'source', {'type': 'vexa', 'container': 'google_meet:abc-defg-hij', 'label': 'Selected meeting'})
     assert client.post('/api/command', json={'action': 'vexa_join', 'payload': {'source_id': source['id']}}).status_code == 403
     assert client.post('/api/command', json={'action': 'vexa_join', 'payload': {'source_id': source['id'], 'consent': True}}).status_code == 409
