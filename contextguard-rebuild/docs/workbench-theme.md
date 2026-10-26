@@ -1,5 +1,7 @@
 # Workbench theme - October 26, 2026
 
+The later user-selected [Claude Amber palette](claude-amber-theme.md) supersedes this earlier graphite/cobalt color direction. Layout and verification history below are retained.
+
 User direction: change the theme and design; use solid colors, square components and concise functional text.
 
 ## Implemented
