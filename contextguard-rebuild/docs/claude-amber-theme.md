@@ -1,5 +1,7 @@
 # Claude Amber light theme
 
+The current selected design is [Graphite & Cobalt](graphite-cobalt-theme.md); this file retains earlier theme history.
+
 The user selected the Claude Amber accent and then explicitly requested a white theme. The original screenshot supplied the terracotta primary and destructive red; surfaces and text were adapted to light mode. This supersedes the earlier dark implementation.
 
 | Token | Hex |

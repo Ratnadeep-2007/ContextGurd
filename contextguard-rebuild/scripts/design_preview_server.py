@@ -28,7 +28,8 @@ def main():
                 for name in names:
                     row=by_name[name]
                     # First sentence is exact source text; dates remain distinct.
-                    quote=row['text'].split('\n')[0]
+                    lines=row['text'].split('\n')
+                    quote=lines[-1] if (key in {'memory-approval','project-routing'} and name=='02-architecture-notes.md') or (key=='owners-approval' and name=='03-meeting-notes.md') else lines[0]
                     quotes.append({'evidence_id':row['id'],'quote':quote})
                 findings.append({'kind':'missing_information' if key=='owners-approval' else 'potential_conflict',
                     'issue_key':key,'title':title,'question':question,'impact':impact,

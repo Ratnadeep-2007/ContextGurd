@@ -1,6 +1,6 @@
 # ContextGuard UI concepts
 
-Three imagegen design previews, October 26, 2026. These three images remain exploratory. The user subsequently selected a separate Claude Amber palette reference, now applied in the application; see [selected theme](../claude-amber-theme.md).
+Three imagegen design previews, October 26, 2026. These three images remain exploratory. After trying Claude Amber, the user selected the exact Graphite & Cobalt image (option 1), now implemented in the application; see [selected theme](../graphite-cobalt-theme.md).
 
 | Concept | Preview | Direction |
 |---|---|---|
