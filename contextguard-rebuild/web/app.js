@@ -69,7 +69,7 @@ setInterval(()=>{
   for(const node of document.querySelectorAll('[data-processing-start]'))
     node.textContent=durationLabel(node.dataset.processingStart,node.dataset.processingEnd||Date.now());
 },1000);
-async function openReview(id){state.review=await api('/reviews/'+id);state.project=state.review.project_id;state.projectData=await api('/projects/'+state.project+'/evidence');state.findingId=null;state.findingFilter='all';state.page='review';state.navOpen=false;render();}
+async function openReview(id){state.review=await api('/reviews/'+id);state.project=state.review.project_id;state.projectData=await api('/projects/'+state.project+'/evidence');state.findingId=null;state.findingFilter='all';state.page='review';state.navOpen=false;render();window.scrollTo({top:0,left:0,behavior:'instant'});}
 function ensurePolling(){
   clearTimeout(pollTimer);
   if(!state.data||!state.data.intakes.some(j=>['queued','routing','analyzing'].includes(j.status)))return;

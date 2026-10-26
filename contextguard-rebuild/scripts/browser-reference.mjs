@@ -1,0 +1,60 @@
+// Visual and interaction checks against the selected Graphite & Cobalt reference.
+import {createRequire} from 'node:module';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+const require=createRequire(resolve(process.env.CONTEXTGUARD_PLAYWRIGHT_PACKAGE||'../frontend/package.json'));
+const {chromium,expect}=require('@playwright/test');
+const base=process.env.CONTEXTGUARD_URL||'http://127.0.0.1:8056';
+const output='artifacts/graphite-cobalt';await mkdir(output,{recursive:true});
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const errors=[],checks=[];
+try {
+ const page=await browser.newPage({viewport:{width:1536,height:1024},deviceScaleFactor:1});
+ page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base);
+ await page.getByLabel('Your name').fill('Preview owner');
+ await page.getByLabel('Password',{exact:true}).fill('fictional-design-password');
+ await page.getByRole('button',{name:'Sign in',exact:true}).click();
+ await page.locator('.review-record').first().click();
+ await expect(page.locator('[data-select-finding]')).toHaveCount(5);
+ await expect(page.locator('article[data-finding] h2')).toHaveText('Which pilot date is approved?');
+ await expect(page.locator('.quote-card')).toHaveCount(2);
+ await expect(page.locator('.quote-card').first()).toContainText('December 7, 2026');
+ await expect(page.locator('.quote-card').nth(1)).toContainText('January 18, 2027');
+ const visual=await page.evaluate(()=>{
+  const root=getComputedStyle(document.documentElement),sidebar=getComputedStyle(document.querySelector('.sidebar'));
+  const violations=Array.from(document.querySelectorAll('#app *')).filter(e=>e.getClientRects().length).filter(e=>{
+   const s=getComputedStyle(e);return s.backgroundImage.includes('gradient')||['borderTopLeftRadius','borderBottomRightRadius'].some(k=>s[k]!=='0px');
+  });
+  return {primary:root.getPropertyValue('--primary').trim(),sidebar:sidebar.backgroundColor,violations:violations.length,overflow:document.documentElement.scrollWidth>innerWidth};
+ });
+ expect(visual.primary).toBe('#2549a2');expect(visual.sidebar).toBe('rgb(32, 37, 45)');expect(visual.violations).toBe(0);expect(visual.overflow).toBe(false);
+ await page.screenshot({path:output+'/report-desktop.png'});
+ await page.locator('.finding-detail').screenshot({path:output+'/evidence-resolution-detail.png'});
+ await page.locator('.sidebar').screenshot({path:output+'/sidebar-detail.png'});
+ checks.push('1536x1024 same-state five-finding report, opposing exact quotes, cobalt/light/graphite tokens, square geometry and no gradients');
+ await page.getByRole('button',{name:/Memory approval/}).click();
+ await expect(page.locator('article[data-finding] h2')).toHaveText('Do requirement changes need member review?');
+ await page.getByRole('button',{name:/Pilot date/}).click();
+ await page.locator('select[name=choice]').selectOption('other');
+ await expect(page.getByLabel('Your answer or explanation')).toBeVisible();
+ await page.getByLabel('Your answer or explanation').fill('Use December 7, 2026 for this fictional design check.');
+ await page.getByRole('button',{name:'Record response',exact:true}).click();
+ await expect(page.locator('.recorded-response')).toContainText('Use December 7');
+ const report=page.waitForEvent('download');await page.getByRole('link',{name:'Download report',exact:true}).click();await(await report).saveAs(output+'/report.md');
+ checks.push('Finding selection, contextual Other input, actual response persistence and report download');
+ await page.setViewportSize({width:768,height:1024});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2))throw Error('Tablet overflow');
+ await page.screenshot({path:output+'/report-tablet.png',fullPage:true});
+ await page.setViewportSize({width:390,height:960});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2))throw Error('Mobile overflow');
+ await page.screenshot({path:output+'/report-mobile.png',fullPage:true});
+ await page.getByRole('button',{name:'Open workspace navigation',exact:true}).click();
+ await page.getByRole('button',{name:'Sources',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Sources',exact:true})).toBeVisible();
+ await page.screenshot({path:output+'/sources-mobile.png',fullPage:true});
+ checks.push('768px and 390px report layout, overflow checks and working mobile Sources navigation');
+ expect(errors).toEqual([]);
+ await writeFile(output+'/results.json',JSON.stringify({checks,errors,visual,mode:'Isolated fictional design fixture; no real models, connectors or user records'},null,2));
+ console.log(JSON.stringify({checks,errors,visual},null,2));
+}finally{await browser.close();}

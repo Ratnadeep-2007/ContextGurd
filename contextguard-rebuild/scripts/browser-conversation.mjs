@@ -126,7 +126,7 @@ try{
   await expect(page.locator('.review-record')).toHaveCount(1,{timeout:15000});
   await page.locator('.review-record').first().click();
   await expect(page.locator('[data-select-finding]')).toHaveCount(6);
-  await expect(page.locator('article[data-finding] h2')).toHaveText('Pilot date disagreement');
+  await expect(page.locator('article[data-finding] h2')).toHaveText('What should the team follow for this pilot?');
   checks.push('Three actual document uploads auto-register sources and create a six-finding project review');
 
   const finding=page.locator('article[data-finding]');

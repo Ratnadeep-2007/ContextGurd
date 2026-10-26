@@ -1,27 +1,27 @@
-/* Claude Amber light: warm white surfaces with the selected terracotta accent. */
+/* Selected Graphite & Cobalt reference: solid colors and square geometry. */
 :root {
   color-scheme: light;
-  --primary: #d97757;
-  --primary-foreground: #1a1915;
-  --secondary: #f2f0eb;
-  --secondary-foreground: #262624;
-  --accent: #f5eee8;
-  --accent-foreground: #302c27;
-  --muted: #f6f5f1;
-  --muted-foreground: #69645d;
+  --primary: #2549a2;
+  --primary-foreground: #ffffff;
+  --secondary: #edf0f5;
+  --secondary-foreground: #25324a;
+  --accent: #eaf0fc;
+  --accent-foreground: #203d80;
+  --muted: #f4f5f8;
+  --muted-foreground: #5d687a;
   --destructive: #ef4444;
   --destructive-foreground: #1a1915;
-  --border: #dedbd4;
+  --border: #d2d8e2;
   --card: #ffffff;
-  --card-foreground: #302c27;
-  --background: #faf9f5;
-  --foreground: #302c27;
+  --card-foreground: #202735;
+  --background: #f3f4f7;
+  --foreground: #202735;
   --warning: #80551b;
   --warning-surface: #fcf3e2;
   --error-surface: #fcece8;
   --error-text: #a8342b;
-  --selected: #f6e8df;
-  --hover: #eeece6;
+  --selected: #eaf0fc;
+  --hover: #e9edf4;
   /* Existing structural aliases. */
   --ink: var(--foreground);
   --forest: var(--primary);
@@ -35,18 +35,18 @@
 }
 body,.auth { color:var(--foreground); background:var(--background); }
 button,.button { color:var(--primary-foreground); background:var(--primary); border-color:var(--primary); }
-button:hover,.button:hover { background:#e58b6d; border-color:#e58b6d; }
+button:hover,.button:hover { background:#1c3c8f; border-color:#1c3c8f; }
 button:disabled { opacity:.55; }
 .secondary { color:var(--secondary-foreground); background:var(--card); border-color:var(--border); }
-.secondary:hover { color:var(--secondary-foreground); background:#e7e5df; border-color:#e7e5df; }
+.secondary:hover { color:var(--secondary-foreground); background:#edf0f5; border-color:#9ca8ba; }
 .text-button,.icon-button,.settings-button { color:var(--foreground); background:transparent; border-color:var(--border); }
 .text-button:hover,.icon-button:hover,.settings-button:hover { color:var(--foreground); background:var(--hover); border-color:var(--border); }
-a { color:#98452e; }
+a { color:#2549a2; }
 button:focus-visible,a:focus-visible,summary:focus-visible,input:focus,select:focus,textarea:focus { outline:2px solid var(--primary); outline-offset:3px; }
-input,select,textarea { color:var(--foreground); background:var(--card); border-color:#aaa399; }
+input,select,textarea { color:var(--foreground); background:var(--card); border-color:#aab5c5; }
 input::placeholder,textarea::placeholder { color:var(--muted-foreground); opacity:1; }
 input[type=checkbox],progress { accent-color:var(--primary); }
-input[type=file]::file-selector-button { font:inherit; color:var(--foreground); background:var(--hover); border:1px solid #716d64; padding:5px 10px; margin-right:12px; border-radius:0; }
+input[type=file]::file-selector-button { font:inherit; color:var(--foreground); background:var(--hover); border:1px solid #aab5c5; padding:5px 10px; margin-right:12px; border-radius:0; }
 select option { color:var(--foreground); background:var(--card); }
 label,summary,.source-picker legend { color:var(--foreground); }
 .hint,small,.muted,.page-description,.eyebrow,.side-heading,.breadcrumbs,.local-indicator,.page-footer,.page-footer .text-button,
@@ -84,14 +84,14 @@ label,summary,.source-picker legend { color:var(--foreground); }
 .finding-list-item:hover { background:var(--hover); }
 .finding-list-item.active { background:var(--selected); border-left-color:var(--primary); }
 .finding-filters button { color:var(--muted-foreground); background:transparent; }
-.finding-filters button[aria-pressed=true] { color:#98452e; border-bottom-color:var(--primary); }
+.finding-filters button[aria-pressed=true] { color:#2549a2; border-bottom-color:var(--primary); }
 .finding-index-heading h2 span,.toolbar-links .text-button span { color:var(--muted-foreground); background:var(--accent); }
 .finding-impact { border-left-color:var(--primary); }
 .finding-impact>p:last-child { color:var(--foreground); }
 .quote-card,.example-quote { color:var(--foreground); background:var(--background); border-color:var(--border); }
 blockquote { color:var(--foreground); background:var(--muted); border-left-color:var(--primary); }
 .quote-card blockquote { color:var(--foreground); background:transparent; }
-.quote-actions .text-button,.quote-actions a { color:#98452e; }
+.quote-actions .text-button,.quote-actions a { color:#2549a2; }
 .uncertainty,.uncertainty .icon { color:var(--warning); }
 .badge,.pill,.connection-card .badge { color:var(--muted-foreground); background:var(--accent); border-color:var(--border); }
 .badge.warning,.warning,.pill.sample { color:var(--warning); background:var(--warning-surface); border-color:#dfc79c; }
@@ -114,3 +114,23 @@ progress::-webkit-progress-bar { background:var(--accent); }progress::-webkit-pr
 .whatsapp-qr img { background:#fff; }
 .auth-note { border-color:var(--border); }
 ::selection { background:var(--primary); color:var(--primary-foreground); }
+
+/* The sidebar stays dark while document reading surfaces stay light. */
+.sidebar,.sidebar.mobile-open{color:#e8edf5;background:#20252d;border-color:#39414e}
+.sidebar .brand,.sidebar .workspace-card strong,.sidebar .recent-review strong{color:#f8fafc}
+.sidebar .nav-item,.sidebar .side-heading,.sidebar .workspace-card small,.sidebar .recent-review small,.sidebar .hint,.sidebar .recent-empty,.sidebar .icon-button,.sidebar .recent-review .icon{color:#bdc7d6}
+.sidebar .nav-item:hover,.sidebar .recent-review:hover,.sidebar .icon-button:hover{color:#fff;background:#2c3544}
+.sidebar .nav-item[aria-current=page]{color:#fff;background:#2549a2;border-left-color:#89a8ff}
+.sidebar .nav-item small{color:#d6e0f7}
+.sidebar .recent-review.active{background:#2d3a51;border-color:#6c8ac7}
+.sidebar .workspace-card,.sidebar .recent-review{border-color:#3c4553}
+.sidebar .workspace-initial{color:#e8edf5;background:#394351}
+.sidebar .recent-review i{background:#9db8fa}
+.sidebar .brand>.icon{color:#b7caf8}
+.uncertainty{color:var(--warning);background:var(--warning-surface);border:1px solid #dfc79c}
+.quote-source{background:#edf0f5;border-bottom:1px solid var(--border)}
+
+.finding-index,.quote-card{background:var(--card)}
+
+.project-picker{background:transparent}.project-picker .create-project>summary{color:#fff;background:var(--primary);border-color:var(--primary)}.project-picker .create-project>summary:hover{background:#1c3c8f}
+.finding-filter-menu .finding-filters{background:var(--card)}.finding-filter-menu .finding-filters button[aria-pressed=true]{background:var(--accent)}
