@@ -1,0 +1,448 @@
+{
+  "fictional": true,
+  "generation": "Local FFmpeg libflite; no external TTS or account contacted.",
+  "sample_rate": 24000,
+  "turns": [
+    {
+      "speaker": "Meera",
+      "text": "I am Meera. I am speaking from product planning, but I cannot approve this pilot. The brief says December seventh, twenty twenty-six. Why are the architecture notes planning January eighteenth, twenty twenty-seven?",
+      "voice": "slt",
+      "gender": "female",
+      "start_frame": 0,
+      "frame_count": 275628,
+      "start_seconds": 0.0,
+      "end_seconds": 11.4845,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "15721c7bd675e4f7e9dd10a132958cef93291c1a2a2317f935e75009be0f61e4"
+    },
+    {
+      "speaker": "Aarav",
+      "text": "I am Aarav. I am reviewing the architecture, and I disagree with that December date. January eighteenth, twenty twenty-seven is the working plan. This is the same Synora pilot, not a different release.",
+      "voice": "rms",
+      "gender": "male",
+      "start_frame": 283308,
+      "frame_count": 276634,
+      "start_seconds": 11.8045,
+      "end_seconds": 23.330916666666667,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "4238daa28c9a9096fb97c2dd847c16609ebc493ece41d809abdc5e60c5914358"
+    },
+    {
+      "speaker": "Rohan",
+      "text": "I am Rohan. I am checking release readiness. Neither date has a signed approval. The January checklist is completely unchecked, and nobody is named as its owner. A calendar target is not completion evidence.",
+      "voice": "awb",
+      "gender": "male, slower pace",
+      "start_frame": 567622,
+      "frame_count": 326874,
+      "start_seconds": 23.650916666666667,
+      "end_seconds": 37.27066666666666,
+      "tempo_factor": 0.923996626906531,
+      "pcm_sha256": "2052c2c09f5906584100a3f995a35c33a48d60aa5dc5d47aa989d502b039ed62"
+    },
+    {
+      "speaker": "Meera",
+      "text": "The lead's email proposes December seventh. Waiting until January eighteenth changes our pilot commitment. I want the earlier date, but the email also asks us to confirm it. We cannot call it a final decision.",
+      "voice": "slt",
+      "gender": "female",
+      "start_frame": 902176,
+      "frame_count": 267328,
+      "start_seconds": 37.590666666666664,
+      "end_seconds": 48.72933333333334,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "dc63ab735487d247d7f2e5868c3014f56e3ad3d569effb3051a724d5f9a56a63"
+    },
+    {
+      "speaker": "Aarav",
+      "text": "I still support January eighteenth. The email is a proposal, and it does not override the architecture plan. We need the project lead to settle this date conflict explicitly.",
+      "voice": "rms",
+      "gender": "male",
+      "start_frame": 1177184,
+      "frame_count": 248177,
+      "start_seconds": 49.04933333333334,
+      "end_seconds": 59.39004166666667,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "c0c2db56032f31479b86481f69a163a8c57fe91cb13077964955b65449a3af98"
+    },
+    {
+      "speaker": "Rohan",
+      "text": "Then stop presenting either date as agreed. Who will ask the lead? No one has accepted that action, and we still have no release approver or completion results.",
+      "voice": "awb",
+      "gender": "male, slower pace",
+      "start_frame": 1433041,
+      "frame_count": 238682,
+      "start_seconds": 59.71004166666667,
+      "end_seconds": 69.655125,
+      "tempo_factor": 0.923996626906531,
+      "pcm_sha256": "500d047f14f17c824b5c7355fa781a8b78ec631e4a1bd707158e58c3d9f230d7"
+    },
+    {
+      "speaker": "Aarav",
+      "text": "I also want saved Atlas edits to become evidence. When a member changes a requirement on the canvas and saves it, Synora should ingest that change. A read-only Atlas feels too restrictive.",
+      "voice": "rms",
+      "gender": "male",
+      "start_frame": 1679403,
+      "frame_count": 266240,
+      "start_seconds": 69.975125,
+      "end_seconds": 81.06845833333334,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "0cb8e13657b0ef3cc7600faa345a4ffcf1e1ae8ca00c38493b754d8532ee7a53"
+    },
+    {
+      "speaker": "Meera",
+      "text": "I disagree. The product brief makes Excalidraw Atlas a read-only generated view. Canvas edits are not evidence. Saving a drawing cannot establish an approved requirement or replace an original source.",
+      "voice": "slt",
+      "gender": "female",
+      "start_frame": 1953323,
+      "frame_count": 251843,
+      "start_seconds": 81.38845833333333,
+      "end_seconds": 91.88191666666667,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "279b0d16557dc740ac0944a290ea25be85b5e1821c961ac591795ac121d61409"
+    },
+    {
+      "speaker": "Rohan",
+      "text": "The integration scope explicitly excludes direct Atlas-edit ingestion. Aarav is proposing a scope change. We have neither an owner nor an approval record for that change.",
+      "voice": "awb",
+      "gender": "male, slower pace",
+      "start_frame": 2212846,
+      "frame_count": 258059,
+      "start_seconds": 92.20191666666666,
+      "end_seconds": 102.954375,
+      "tempo_factor": 0.923996626906531,
+      "pcm_sha256": "33a1cbe39d23354e225b052b9e295c2c9f3af670a2151355eaa31dfacb56ec72"
+    },
+    {
+      "speaker": "Aarav",
+      "text": "I understand the exclusion, but I still think a saved Atlas edit should count as evidence. I am arguing for changing the policy, not claiming that anybody has approved it.",
+      "voice": "rms",
+      "gender": "male",
+      "start_frame": 2478585,
+      "frame_count": 240277,
+      "start_seconds": 103.274375,
+      "end_seconds": 113.28591666666667,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "cc60cb15305309b7099088a9aef6f555acb1e52bb67e0b0aca69a65edcd469cb"
+    },
+    {
+      "speaker": "Meera",
+      "text": "For project memory, I support the lead's separate proposal. Requirement changes should write into memory automatically. A queue for every change will slow the pilot, and I want that queue removed.",
+      "voice": "slt",
+      "gender": "female",
+      "start_frame": 2726542,
+      "frame_count": 226541,
+      "start_seconds": 113.60591666666667,
+      "end_seconds": 123.045125,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "22a6314300481888ef5dba83e9976d9f1a46bc80537763ba22bf0f4dc4338258"
+    },
+    {
+      "speaker": "Aarav",
+      "text": "No. The architecture notes require changes to approved requirements to stay pending until a member reviews them. Automatically writing them into approved memory removes the review-first gate. I oppose that.",
+      "voice": "rms",
+      "gender": "male",
+      "start_frame": 2960763,
+      "frame_count": 280018,
+      "start_seconds": 123.365125,
+      "end_seconds": 135.03254166666667,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "77d9ccbfabf3fbf45d7eb9147de7eb47b8dbc01a1f19a5fa901c2845cb3d9da1"
+    },
+    {
+      "speaker": "Rohan",
+      "text": "We left the memory-approval decision open in the meeting notes. Nobody is named to approve those changes. Neither an email proposal nor a missing owner gives the system authority to choose.",
+      "voice": "awb",
+      "gender": "male, slower pace",
+      "start_frame": 3248461,
+      "frame_count": 274975,
+      "start_seconds": 135.35254166666667,
+      "end_seconds": 146.80983333333333,
+      "tempo_factor": 0.923996626906531,
+      "pcm_sha256": "16d8d79d615a9a5fb068b0784491079ec46ffc5e0161fcb45830676fdd017d59"
+    },
+    {
+      "speaker": "Meera",
+      "text": "I also prefer auto-routing ambiguous evidence to the closest project. Leaving it in Unknown Context feels like lost work. The lead suggested this too, although I know the scope excludes auto-routing.",
+      "voice": "slt",
+      "gender": "female",
+      "start_frame": 3531116,
+      "frame_count": 246246,
+      "start_seconds": 147.12983333333332,
+      "end_seconds": 157.39008333333334,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "e5956cf4ec6793d440c4a253951c1f787cfc523ac9085ca0c279326995e2e84a"
+    },
+    {
+      "speaker": "Aarav",
+      "text": "I disagree again. Ambiguous evidence must stay in Unknown Context until a member confirms the project. Similar wording does not establish project identity. Auto-routing would violate the pilot's stated scope.",
+      "voice": "rms",
+      "gender": "male",
+      "start_frame": 3785042,
+      "frame_count": 289209,
+      "start_seconds": 157.71008333333333,
+      "end_seconds": 169.76045833333333,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "ac016b01cf7204b069d819f28bd78c4c413c9119052287211570d69693766f72"
+    },
+    {
+      "speaker": "Rohan",
+      "text": "A conversation can mention several projects or no project at all. We have no named routing reviewer. Until an authorized person resolves that, the routing conflict and its owner are both open.",
+      "voice": "awb",
+      "gender": "male, slower pace",
+      "start_frame": 4081931,
+      "frame_count": 298763,
+      "start_seconds": 170.08045833333333,
+      "end_seconds": 182.52891666666667,
+      "tempo_factor": 0.923996626906531,
+      "pcm_sha256": "d02cdc9a86cecf12f7635267d9350a77a2dc182bbd11c385363ca25dded708de"
+    },
+    {
+      "speaker": "Meera",
+      "text": "So I still want December, automatic memory writes, and a proposed routing exception. Aarav wants January, review-first memory, and Unknown Context. We also disagree about saved Atlas edits. We have not reached agreement.",
+      "voice": "slt",
+      "gender": "female",
+      "start_frame": 4388374,
+      "frame_count": 306706,
+      "start_seconds": 182.84891666666667,
+      "end_seconds": 195.62833333333333,
+      "tempo_factor": 1.140736576427816,
+      "pcm_sha256": "ac8d0035e7a82ae4543d5c70466d011180a6369d7c92aba0f3b40139e0e39e29"
+    },
+    {
+      "speaker": "Rohan",
+      "text": "No decision has been taken. The next action is to confirm the pilot date, Atlas policy, memory approval, routing policy, and accountable owners with the project lead. Nobody has accepted ownership of that action yet.",
+      "voice": "awb",
+      "gender": "male, slower pace",
+      "start_frame": 4702760,
+      "frame_count": 338261,
+      "start_seconds": 195.94833333333332,
+      "end_seconds": 210.04254166666666,
+      "tempo_factor": 0.923996626906531,
+      "pcm_sha256": "bbc932e10e587936122389925dd29674889340587defc2d5f409333182f9b4a6"
+    }
+  ],
+  "global_tempo_factor": 1.140736576427816,
+  "speaker_count": 3,
+  "expected_conflicts": {
+    "pilot_date": {
+      "description": "December 7, 2026 versus January 18, 2027 for the same first pilot.",
+      "anchors": [
+        "December 7, 2026",
+        "January 18, 2027"
+      ]
+    },
+    "atlas_edits": {
+      "description": "Saved canvas edits become evidence versus Atlas stays read-only and edits are not evidence.",
+      "anchors": [
+        "canvas edits are not evidence",
+        "canvas edits should become evidence after save"
+      ]
+    },
+    "memory_approval": {
+      "description": "Automatic approved-requirement memory writes versus pending until member review.",
+      "anchors": [
+        "changes to an approved requirement stay pending until a member reviews them",
+        "automatically writing approved-requirement changes into project memory without a member review"
+      ]
+    },
+    "routing": {
+      "description": "Auto-route ambiguous evidence versus retain it in Unknown Context until human confirmation.",
+      "anchors": [
+        "ambiguous evidence stays in unknown context",
+        "auto-routing ambiguous evidence to the closest project"
+      ]
+    },
+    "missing_owners_approval": {
+      "description": "No accountable owners, accepted follow-up, signed policy approval or readiness evidence.",
+      "anchors": [
+        "no owner was named",
+        "no assigned owner",
+        "no owner has accepted"
+      ]
+    }
+  },
+  "transcript_verification_method": "Exact canonical TTS input per turn plus SHA-256 of every complete spoken PCM segment in the WAV.",
+  "independent_asr_performed": false,
+  "app_started_or_review_run": false,
+  "checks_passed": true,
+  "audio_probe": {
+    ".wav": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "pcm_s16le",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "210.042542"
+      }
+    },
+    ".mp3": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "210.042542"
+      }
+    }
+  },
+  "mp3_wav_correlation": 0.9999986701183016,
+  "document_conflict_coverage": {
+    "pilot_date": {
+      "December 7, 2026": [
+        "01-product-brief.md",
+        "03-meeting-notes.md",
+        "04-release-checklist.md",
+        "06-project-lead-email.md"
+      ],
+      "January 18, 2027": [
+        "02-architecture-notes.md",
+        "03-meeting-notes.md",
+        "04-release-checklist.md",
+        "06-project-lead-email.md"
+      ]
+    },
+    "atlas_edits": {
+      "canvas edits are not evidence": [
+        "01-product-brief.md",
+        "03-meeting-notes.md",
+        "04-release-checklist.md",
+        "06-project-lead-email.md"
+      ],
+      "canvas edits should become evidence after save": [
+        "03-meeting-notes.md"
+      ]
+    },
+    "memory_approval": {
+      "changes to an approved requirement stay pending until a member reviews them": [
+        "02-architecture-notes.md"
+      ],
+      "automatically writing approved-requirement changes into project memory without a member review": [
+        "06-project-lead-email.md"
+      ]
+    },
+    "routing": {
+      "ambiguous evidence stays in unknown context": [
+        "02-architecture-notes.md",
+        "04-release-checklist.md"
+      ],
+      "auto-routing ambiguous evidence to the closest project": [
+        "06-project-lead-email.md"
+      ]
+    },
+    "missing_owners_approval": {
+      "no owner was named": [
+        "03-meeting-notes.md"
+      ],
+      "no assigned owner": [
+        "04-release-checklist.md"
+      ],
+      "no owner has accepted": [
+        "06-project-lead-email.md"
+      ]
+    }
+  },
+  "audio_conflict_coverage": {
+    "pilot_date": [
+      "december seventh",
+      "january eighteenth"
+    ],
+    "atlas_edits": [
+      "saved atlas edits to become evidence",
+      "canvas edits are not evidence"
+    ],
+    "memory_approval": [
+      "write into memory automatically",
+      "stay pending until a member reviews them"
+    ],
+    "routing": [
+      "auto-routing ambiguous evidence",
+      "stay in unknown context until a member confirms"
+    ],
+    "missing_owners_approval": [
+      "no release approver",
+      "nobody has accepted ownership",
+      "no decision has been taken"
+    ]
+  },
+  "transcript_matches_exact_synthesis_input": true,
+  "all_spoken_pcm_segments_match": true,
+  "all_audio_decoded_without_errors": true,
+  "files": {
+    "01-product-brief.md": {
+      "bytes": 1696,
+      "sha256": "26637cf843d2a03fdd9f2870ec0e66e59db54afe33707fde0cb38dad3cbc00c2"
+    },
+    "02-architecture-notes.md": {
+      "bytes": 1631,
+      "sha256": "22a1df81a06876abf38f80648d6a28e01f7f690e50cecfd54a9826aed1f9d903"
+    },
+    "03-meeting-notes.md": {
+      "bytes": 1769,
+      "sha256": "b5fd307e69bd05286254650ce70fd086e18e98c1494e11413eaa19020f3a3406"
+    },
+    "04-release-checklist.md": {
+      "bytes": 1365,
+      "sha256": "964f48033dc866ee3fc6abea309b1dfe9f1d4254d7713865a997544f5bc3055a"
+    },
+    "05-integration-scope.md": {
+      "bytes": 1465,
+      "sha256": "348252790801071a90b551270e6598696d6cda70f50f7c961de150e9afa8b24f"
+    },
+    "06-project-lead-email.md": {
+      "bytes": 1821,
+      "sha256": "5e5fb5f98981765479648d98ca32eb9d2fc8f9151e5ac2bfcd1b4b1ec0546930"
+    },
+    "07-synora-pilot-discussion-transcript.txt": {
+      "bytes": 4730,
+      "sha256": "a362dafaed122f9a1cef9d93996c7b107a293201bd9eec5b5449e827d6e6f2ae"
+    },
+    "07-synora-pilot-discussion.mp3": {
+      "bytes": 3362060,
+      "sha256": "19b27d9ebf59940a938cb8c0c4c54240e5cbc131abb7fa3583bcc4ad02a79e2d"
+    },
+    "07-synora-pilot-discussion.wav": {
+      "bytes": 10082086,
+      "sha256": "3b10d543be3ac1eb6e585f249d5ffbb9bdd7c0770b5958283e8cb4bac2739e9a"
+    },
+    "README.md": {
+      "bytes": 7829,
+      "sha256": "9735835d77936435335d89cd4670f345cc8aefca16a389f0a5b3e1b23b0a58f9"
+    }
+  },
+  "speaker_rates": {
+    "Meera": {
+      "words": 192,
+      "speech_seconds": 65.5955,
+      "words_per_minute": 175.6218033249232,
+      "voice": "slt",
+      "gender": "female"
+    },
+    "Aarav": {
+      "words": 184,
+      "speech_seconds": 66.68979166666666,
+      "words_per_minute": 165.54257741845797,
+      "voice": "rms",
+      "gender": "male"
+    },
+    "Rohan": {
+      "words": 186,
+      "speech_seconds": 72.31724999999999,
+      "words_per_minute": 154.32002737935971,
+      "voice": "awb",
+      "gender": "male, slower pace"
+    }
+  },
+  "rohan_slower_than_other_speakers": true,
+  "only_declared_turns_and_silent_gaps": true,
+  "readiness_checklist_items": 9,
+  "all_readiness_items_unchecked": true
+}

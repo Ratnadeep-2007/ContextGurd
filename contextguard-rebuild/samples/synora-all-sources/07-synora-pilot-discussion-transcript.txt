@@ -1,0 +1,33 @@
+FICTIONAL SYNORA PILOT DISCUSSION
+Exact speech input; approximate timestamps. Exactly three synthetic speakers.
+Only text between BEGIN/END SPOKEN TRANSCRIPT is spoken. The answer key is not spoken.
+
+BEGIN SPOKEN TRANSCRIPT
+[00:00.000] Meera: I am Meera. I am speaking from product planning, but I cannot approve this pilot. The brief says December seventh, twenty twenty-six. Why are the architecture notes planning January eighteenth, twenty twenty-seven?
+[00:11.804] Aarav: I am Aarav. I am reviewing the architecture, and I disagree with that December date. January eighteenth, twenty twenty-seven is the working plan. This is the same Synora pilot, not a different release.
+[00:23.651] Rohan: I am Rohan. I am checking release readiness. Neither date has a signed approval. The January checklist is completely unchecked, and nobody is named as its owner. A calendar target is not completion evidence.
+[00:37.591] Meera: The lead's email proposes December seventh. Waiting until January eighteenth changes our pilot commitment. I want the earlier date, but the email also asks us to confirm it. We cannot call it a final decision.
+[00:49.049] Aarav: I still support January eighteenth. The email is a proposal, and it does not override the architecture plan. We need the project lead to settle this date conflict explicitly.
+[00:59.710] Rohan: Then stop presenting either date as agreed. Who will ask the lead? No one has accepted that action, and we still have no release approver or completion results.
+[01:09.975] Aarav: I also want saved Atlas edits to become evidence. When a member changes a requirement on the canvas and saves it, Synora should ingest that change. A read-only Atlas feels too restrictive.
+[01:21.388] Meera: I disagree. The product brief makes Excalidraw Atlas a read-only generated view. Canvas edits are not evidence. Saving a drawing cannot establish an approved requirement or replace an original source.
+[01:32.202] Rohan: The integration scope explicitly excludes direct Atlas-edit ingestion. Aarav is proposing a scope change. We have neither an owner nor an approval record for that change.
+[01:43.274] Aarav: I understand the exclusion, but I still think a saved Atlas edit should count as evidence. I am arguing for changing the policy, not claiming that anybody has approved it.
+[01:53.606] Meera: For project memory, I support the lead's separate proposal. Requirement changes should write into memory automatically. A queue for every change will slow the pilot, and I want that queue removed.
+[02:03.365] Aarav: No. The architecture notes require changes to approved requirements to stay pending until a member reviews them. Automatically writing them into approved memory removes the review-first gate. I oppose that.
+[02:15.353] Rohan: We left the memory-approval decision open in the meeting notes. Nobody is named to approve those changes. Neither an email proposal nor a missing owner gives the system authority to choose.
+[02:27.130] Meera: I also prefer auto-routing ambiguous evidence to the closest project. Leaving it in Unknown Context feels like lost work. The lead suggested this too, although I know the scope excludes auto-routing.
+[02:37.710] Aarav: I disagree again. Ambiguous evidence must stay in Unknown Context until a member confirms the project. Similar wording does not establish project identity. Auto-routing would violate the pilot's stated scope.
+[02:50.080] Rohan: A conversation can mention several projects or no project at all. We have no named routing reviewer. Until an authorized person resolves that, the routing conflict and its owner are both open.
+[03:02.849] Meera: So I still want December, automatic memory writes, and a proposed routing exception. Aarav wants January, review-first memory, and Unknown Context. We also disagree about saved Atlas edits. We have not reached agreement.
+[03:15.948] Rohan: No decision has been taken. The next action is to confirm the pilot date, Atlas policy, memory approval, routing policy, and accountable owners with the project lead. Nobody has accepted ownership of that action yet.
+END SPOKEN TRANSCRIPT
+
+PLANTED CONFLICTS - VALIDATION KEY, NOT SPOKEN
+1. December 7, 2026 versus January 18, 2027 for the same first pilot.
+2. Saved canvas edits become evidence versus Atlas stays read-only and edits are not evidence.
+3. Automatic approved-requirement memory writes versus pending until member review.
+4. Auto-route ambiguous evidence versus retain it in Unknown Context until human confirmation.
+5. No accountable owners, accepted follow-up, signed policy approval or readiness evidence.
+
+Outcome: no decision taken; confirm with the project lead; action owner not accepted.

@@ -1,0 +1,16 @@
+/devpost/learner-profile.md
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+__pycache__/
+*.py[cod]
+*.sqlite
+*.sqlite3
+*.db
+/data/
+/artifacts/
+/frontend/dist/
+/.agents/skills/
+/.skills/
